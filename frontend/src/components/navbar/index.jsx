@@ -6,7 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <nav
@@ -19,24 +24,32 @@ const Navbar = () => {
       }}
     >
       {/* Logo and brand name */}
-      {/* <div className="flex items-center cursor-pointer">
+      <div className="flex items-center cursor-pointer">
         <Img src={logo} alt="logo" height={50} width={50} />
         <p className="text-blue text-2xl font-poppins ml-2">Trustflow</p>
-      </div> */}
+      </div>
 
       {/* Desktop navigation */}
       <ul className="list-none sm:flex hidden justify-end items-center flex-1 text-black">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            onClick={()=>navigate(`${nav.id}`)}
+            onClick={() => navigate(`${nav.id}`)}
             className={`font-poppins font-normal cursor-pointer text-base ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
-            <Link href={"/user"}>{nav.title} </Link>
+            <Link to={`/${nav.id}`}>{nav.title}</Link>
           </li>
         ))}
+        <li className="ml-10">
+          <button
+            onClick={handleLogout}
+            className="font-poppins font-normal cursor-pointer text-base bg-red-500 text-white py-1 px-4 rounded"
+          >
+            Logout
+          </button>
+        </li>
       </ul>
 
       {/* Mobile navigation */}
@@ -56,13 +69,25 @@ const Navbar = () => {
               {navLinks.map((nav, index) => (
                 <li
                   key={nav.id}
+                  onClick={() => {
+                    setToggle(false);
+                    navigate(`${nav.id}`);
+                  }}
                   className={`font-poppins font-normal cursor-pointer text-base py-2 px-4 ${
                     index === navLinks.length - 1 ? "border-b" : ""
                   }`}
                 >
-                  <Link href={"/user"}>{nav.title} </Link>
+                  <Link to={`/${nav.id}`}>{nav.title}</Link>
                 </li>
               ))}
+              <li className="py-2 px-4">
+                <button
+                  onClick={handleLogout}
+                  className="font-poppins font-normal cursor-pointer text-base bg-red-500 text-white py-1 px-4 rounded w-full text-left"
+                >
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
         )}
