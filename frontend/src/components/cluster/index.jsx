@@ -24,6 +24,9 @@ export default function CardWithForm() {
   const [picture, setPicture] = useState(null);
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
+  const [color, setColor] = useState("");
+  const [shape, setShape]= useState("");
+  const [sku_id, setSku_id]= useState("");
   const [name, setName] = useState("");
 
   const handlePictureChange = async (e) => {
@@ -39,6 +42,9 @@ export default function CardWithForm() {
       });
 
       console.log("Generate Response:", response.data);
+      setColor(response.data.details.colour);
+      setShape(response.data.details.shape);
+      setSku_id(response.data.details.SKU);
       setPicture(response.data.imageBase64); // Assuming you want to set the base64 string of the image
     } catch (error) {
       console.error("Error generating image details:", error);
@@ -54,6 +60,9 @@ export default function CardWithForm() {
       image: picture,
       description: "", // empty string for description
       quantity: parseInt(quantity),
+      color: color,
+      shape: shape,
+      sku_id: sku_id
     };
 
     try {
