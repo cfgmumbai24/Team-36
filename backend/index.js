@@ -1,34 +1,24 @@
-import express from "express";
-import { PORT, mongoDBURL } from "./config.js";
-import mongoose from "mongoose";
-import {Book} from "./models/bookModel.js";
-import bookRoutes from "./routes/bookRoutes.js";
-import cors from 'cors'
-const app = express();
+const express=require('express');
+const mongoose=require('mongoose');
+const cors=require('cors');
+const dotenv=require('dotenv');
+const app=express();
 
-//.use for middleware
+//middleware
 app.use(express.json());
+app.use(cors());
 
-app.use(cors())
+//configure .env file
+dotenv.config();
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
+//database
+mongoose.connect(process.env.MONGO_URL,{
+    useNewUrlParser:true,
+    useUnifiedTopology: true
+})
+    .then(()=>console.log("Connected to database"))
+    .catch(console.error);
 
-//middleware to use bookRoutes, for book model
-//we will create separate routes for separate models
-
-app.use("/books",bookRoutes);
-
-mongoose
-  .connect(mongoDBURL)
-  .then(() => {
-    console.log("Connected to MongoDB");
-    app.listen(PORT, () => {
-      console.log(`Server is listening on port - ${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
+    
+//post where the server runs
+app.listen(5000, ()=> console.log("Server Running!!"))
