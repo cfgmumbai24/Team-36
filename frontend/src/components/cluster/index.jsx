@@ -76,7 +76,7 @@ export default function CardWithForm() {
       category: category,
       image: picture,
       description: "", // empty string for description
-      quantity: parseInt(quantity),
+      quantity: quantity,
       color: color,
       shape: shape,
       sku_id: sku_id,
