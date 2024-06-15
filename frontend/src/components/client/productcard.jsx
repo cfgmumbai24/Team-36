@@ -1,36 +1,40 @@
+import React, { useState, useEffect } from "react";
 
-import React, { useEffect, useState } from "react";
-
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onProductUpdate, selectedProducts }) => {
   const [quantity, setQuantity] = useState(0);
-  const [selectedProducts, setSelectedProducts] = useState([]);
 
-  const updateProductArray = (product, quantity) => {
-    const updatedProducts = selectedProducts.map((p) =>
-      p.id === product.id ? { ...p, quantity } : p
-    );
-
-    if (!updatedProducts.some((p) => p.id === product.id)) {
-      updatedProducts.push({ ...product, quantity });
-    }
-
-    setSelectedProducts(updatedProducts);
-    console.log("Selected Products:", updatedProducts);
-  };
-
-  const handleIncrement = () => {
-    const newQuantity = quantity + 1;
+  const handleQuantityChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10);
     setQuantity(newQuantity);
     updateProductArray(product, newQuantity);
   };
 
-  const handleDecrement = () => {
-    if (quantity > 0) {
-      const newQuantity = quantity - 1;
-      setQuantity(newQuantity);
-      updateProductArray(product, newQuantity);
+  const updateProductArray = (product, quantity) => {
+    const existingProductIndex = selectedProducts.findIndex(
+      (p) => p._id === product._id
+    );
+
+    let updatedProducts = [...selectedProducts];
+
+    if (existingProductIndex !== -1) {
+      if (quantity > 0) {
+        updatedProducts[existingProductIndex] = { ...product, quantity };
+      } else {
+        updatedProducts.splice(existingProductIndex, 1);
+      }
+    } else if (quantity > 0) {
+      updatedProducts.push({ ...product, quantity });
     }
+
+    onProductUpdate(updatedProducts);
   };
+
+  useEffect(() => {
+    const existingProduct = selectedProducts.find((p) => p._id === product._id);
+    if (existingProduct) {
+      setQuantity(existingProduct.quantity);
+    }
+  }, [product, selectedProducts]);
 
   return (
     <div className="border p-4 rounded shadow-lg">
@@ -43,19 +47,14 @@ const ProductCard = ({ product }) => {
       <p className="text-gray-700 mb-2">{product.description}</p>
       <p className="text-gray-900 font-semibold">${product.price.toFixed(2)}</p>
       <div className="flex items-center mt-4">
-        <button
-          onClick={handleDecrement}
-          className="bg-customOrange text-white px-3 py-1 rounded mr-2"
-        >
-          -
-        </button>
-        <span className="text-lg font-semibold">{quantity}</span>
-        <button
-          onClick={handleIncrement}
-          className="bg-customOrange text-white px-3 py-1 rounded ml-2"
-        >
-          +
-        </button>
+        <label className="mr-2">Quantity:</label>
+        <input
+          type="number"
+          min="0"
+          value={quantity}
+          onChange={handleQuantityChange}
+          className="w-16 border rounded px-2 py-1"
+        />
       </div>
     </div>
   );

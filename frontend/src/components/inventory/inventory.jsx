@@ -18,9 +18,8 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import * as Dialog from '@radix-ui/react-dialog';
-import axios from 'axios';
-import { Bold } from "lucide-react";
+import * as Dialog from "@radix-ui/react-dialog";
+import axios from "axios";
 
 export default function TableDemo() {
   const [products, setProducts] = useState([]);
@@ -33,7 +32,7 @@ export default function TableDemo() {
     // Fetch products from the backend
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/getProducts'); // Adjust the URL to your API endpoint
+        const response = await axios.get("http://localhost:5000/getProducts");
         setProducts(response.data);
         console.log(response.data);
       } catch (error) {
@@ -52,7 +51,7 @@ export default function TableDemo() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const updatedValue = name === 'quantity' ? parseInt(value, 10) : value;
+    const updatedValue = name === "quantity" ? parseInt(value, 10) : value;
     const updatedFormData = {
       ...formData,
       [name]: updatedValue,
@@ -62,7 +61,10 @@ export default function TableDemo() {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:5000/products/${formData.product_id}`, formData); // Adjust the URL to your API endpoint
+      await axios.put(
+        `http://localhost:5000/products/${formData.product_id}`,
+        formData
+      );
       setProducts((prevProducts) =>
         prevProducts.map((prod) =>
           prod.product_id === formData.product_id ? formData : prod
@@ -76,8 +78,10 @@ export default function TableDemo() {
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`http://localhost:5000/products/${productId}`); // Adjust the URL to your API endpoint
-      setProducts(products.filter((product) => product.product_id !== productId));
+      await axios.delete(`http://localhost:5000/products/${productId}`);
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.product_id !== productId)
+      );
       setActiveActionMenu(null);
     } catch (error) {
       console.error("Error deleting product:", error);
@@ -85,19 +89,24 @@ export default function TableDemo() {
   };
 
   const calculateTotalprice = () => {
-    return products.reduce((total, product) => total + parseFloat(product.price), 0).toFixed(2);
+    return products
+      .reduce((total, product) => total + parseFloat(product.price), 0)
+      .toFixed(2);
   };
 
   const handleApprove = async () => {
     try {
       const updatedProduct = { ...selectedProduct, sub_admin_approved: true };
       console.log(updatedProduct);
-      await axios.post(`http://localhost:5000/subAdmin/updateProduct`, updatedProduct); // Adjust the URL to your API endpoint
-      setProducts(products.map((product) =>
-        product._id === selectedProduct._id
-          ? updatedProduct
-          : product
-      ));
+      await axios.post(
+        `http://localhost:5000/subAdmin/updateProduct`,
+        updatedProduct
+      );
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product._id === selectedProduct._id ? updatedProduct : product
+        )
+      );
       setSelectedProduct(null);
     } catch (error) {
       console.error("Error approving product:", error);
@@ -107,12 +116,17 @@ export default function TableDemo() {
   const handleReject = async () => {
     try {
       const updatedProduct = { ...selectedProduct, status: "Rejected" };
-      await axios.put(`http://localhost:5000/products/${selectedProduct.product_id}`, updatedProduct); // Adjust the URL to your API endpoint
-      setProducts(products.map((product) =>
-        product.product_id === selectedProduct.product_id
-          ? updatedProduct
-          : product
-      ));
+      await axios.put(
+        `http://localhost:5000/products/${selectedProduct.product_id}`,
+        updatedProduct
+      );
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.product_id === selectedProduct.product_id
+            ? updatedProduct
+            : product
+        )
+      );
       setSelectedProduct(null);
     } catch (error) {
       console.error("Error rejecting product:", error);
@@ -124,11 +138,9 @@ export default function TableDemo() {
   };
 
   return (
-    <div className="justify-center p-10">
-      <center>
-        <h1 className="my-10" style={{fontSize:"2rem"}}>INVENTORY MANAGEMENT</h1>
-      </center>
-      <Table className="border-2 rounded-lg border-slate-800 ">
+    <div className="justify-center">
+      <h1 className="my-10">INVENTORY MANAGEMENT</h1>
+      <Table className="border-2 rounded-lg border-slate-800">
         <TableHeader>
           <TableRow className="text-center">
             <TableHead className="w-[100px]">Product_ID</TableHead>
@@ -136,12 +148,16 @@ export default function TableDemo() {
             <TableHead>Product_Name</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Status</TableHead>
+            <TableHead className="text-right">Price</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {products.map((product) => (
-            <TableRow key={product._id} onClick={() => handleProductClick(product)}>
+            <TableRow
+              key={product._id}
+              onClick={() => handleProductClick(product)}
+            >
               <TableCell className="font-medium">
                 {editableProduct === product._id ? (
                   <input
@@ -196,26 +212,28 @@ export default function TableDemo() {
                     onChange={handleChange}
                   />
                 ) : (
-                  product.sub_admin_approved ? "Approved" : 'Pending'
+                  product.status
                 )}
               </TableCell>
-
-              {/* <TableCell className="text-right">
+              <TableCell className="text-right">
                 {editableProduct === product._id ? (
                   <input
                     name="price"
+                    type="number"
                     value={formData.price}
                     onChange={handleChange}
                   />
                 ) : (
                   `$${product.price}`
                 )}
-              </TableCell> */}
+              </TableCell>
               <TableCell>
                 {editableProduct === product._id ? (
                   <div>
                     <button onClick={handleSave}>Save</button>
-                    <button onClick={() => setEditableProduct(null)}>Cancel</button>
+                    <button onClick={() => setEditableProduct(null)}>
+                      Cancel
+                    </button>
                   </div>
                 ) : (
                   <div className="relative">
@@ -223,7 +241,7 @@ export default function TableDemo() {
                       &#x22EE;
                     </button>
                     {activeActionMenu === product._id && (
-                      <div className="absolute right-0 z-10 mt-2 w-28 bg-white border border-gray-300 rounded-lg shadow-lg">
+                      <div className="absolute right-0 z-10 mt-2 w-28 border border-gray-300 rounded-lg shadow-lg">
                         <button
                           className="block w-full px-4 py-2 text-left"
                           onClick={() => handleEdit(product)}
@@ -246,14 +264,14 @@ export default function TableDemo() {
         </TableBody>
       </Table>
 
-      <br></br>
-      <br></br>
-      <br></br>
-      {! selectedProduct?.sub_admin_approved && (
-        <Dialog.Root open={selectedProduct !== null} onOpenChange={() => setSelectedProduct(null)}>
+      {selectedProduct && (
+        <Dialog.Root
+          open={selectedProduct !== null}
+          onOpenChange={() => setSelectedProduct(null)}
+        >
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-            <Dialog.Content className="fixed inset-0 m-auto max-w-md bg-white p-6 rounded shadow-lg max-h-[100vh] overflow-y-auto my-3">
+            <Dialog.Content className="fixed inset-0 m-auto max-w-md bg-white p-6 rounded shadow-lg">
               <Card className="w-[350px] shadow-2xl">
                 <CardHeader>
                   <CardTitle>SUB-ADMIN APPROVAL</CardTitle>
@@ -265,43 +283,31 @@ export default function TableDemo() {
                         <Label htmlFor="product_id">Product ID</Label>
                         <Input
                           id="product_id"
-                          value={selectedProduct?._id}
+                          value={selectedProduct._id}
                           disabled
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">
                         <Label htmlFor="product_name">Product Name</Label>
-                        <Input
-                          id="product_name"
-                          value={selectedProduct?.name}
-                        />
+                        <Input id="product_name" value={selectedProduct.name} />
                       </div>
                       <div className="flex flex-col space-y-1.5">
                         <Label htmlFor="sku_id">SKU_ID</Label>
                         <Input
                           id="sku_id"
-                          value={selectedProduct?.sku_id}
+                          value={selectedProduct.sku_id}
                           disabled
-                        />
-                      </div>
-                      <div className="flex flex-col space-y-1.5">
-                        <Label htmlFor="sku_id">Product Image</Label>
-                        <img
-                          id="sku_id"
-                          src={selectedProduct?.image}
-                          alt="Product Image"
-                          className="object-contain h-48 w-full"
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">
                         <Label htmlFor="quantity">Quantity</Label>
                         <Input
                           id="quantity"
-                          value={selectedProduct?.quantity}
+                          value={selectedProduct.quantity}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
-                              quantity: parseInt(e.target.value, 10),
+                              quantity: e.target.value,
                             })
                           }
                         />
@@ -310,11 +316,11 @@ export default function TableDemo() {
                         <Label htmlFor="price">price</Label>
                         <Input
                           id="price"
-                          value={selectedProduct?.price}
+                          value={selectedProduct.price}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
-                              price: parseFloat(e.target.value),
+                              price: e.target.value,
                             })
                           }
                         />
@@ -323,7 +329,7 @@ export default function TableDemo() {
                         <Label htmlFor="description">Description</Label>
                         <Input
                           id="description"
-                          value={selectedProduct?.description || ""}
+                          value={selectedProduct.description || ""}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,

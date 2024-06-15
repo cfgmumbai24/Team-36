@@ -2,15 +2,15 @@ import { facebook, instagram, linkedin, twitter } from "../assets";
 
 export const navLinks = [
   {
-    id: "home",
+    id: "",
     title: "Home",
   },
   {
-    id: "features",
+    id: "",
     title: "Features",
   },
   {
-    id: "product",
+    id: "client",
     title: "Product",
   },
   {
@@ -39,10 +39,6 @@ export const footerLinks = [
         name: "Explore",
         link: "https://www.hoobank.com/explore/",
       },
-      {
-        name: "Terms & Services",
-        link: "https://www.hoobank.com/terms-and-services/",
-      },
     ],
   },
   {
@@ -51,10 +47,6 @@ export const footerLinks = [
       {
         name: "Help Center",
         link: "https://www.hoobank.com/help-center/",
-      },
-      {
-        name: "Partners",
-        link: "https://www.hoobank.com/partners/",
       },
       {
         name: "Suggestions",

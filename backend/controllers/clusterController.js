@@ -2,8 +2,17 @@ const Product = require('../models/product');
 
 module.exports.addProduct = async function(req, res) {
     try {
-        const { name, category, image, description, quantity } = req.body;
-        var shape="ww", color="ww", sku_id="ww";
+        console.log("here");
+        const { name, category, quantity, shape, color, sku_id, image } = req.body;
+        // const image= req.file;
+        // if (!req.file) {
+        //     console.log("fafaf");
+        //     return res.status(400).json({ error: 'No file uploaded' });
+        // }
+    
+        // Convert the uploaded file buffer to base64
+        // console.log(image);
+
         let product = await Product.findOne({ category: category, sku_id: sku_id });
 
         if (product) {
@@ -17,7 +26,7 @@ module.exports.addProduct = async function(req, res) {
                 name: name,
                 category: category,
                 image: image,
-                description: description,
+                description: "",
                 quantity: quantity,
                 shape: shape,
                 color: color,

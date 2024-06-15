@@ -9,11 +9,10 @@ const Footer = () => (
     className={`${styles.flexCenter} ${styles.paddingY} flex-col px-4 md:px-8 lg:px-16 xl:px-20`}
     data-aos="fade-up"
     style={{
-      background: "#F08000",
+      background: "#F2DAC9",
       boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-      backdropFilter: "blur(10px)",
-      WebkitBackdropFilter: "blur(5px)",
-      border: "1px solid rgba(255, 255, 255, 0.3)",
+      backdropFilter: "blur(50px)",
+      WebkitBackdropFilter: "blur(10px)",
     }}
   >
     <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
@@ -24,17 +23,19 @@ const Footer = () => (
           className="w-[266px] h-[72.14px] object-contain"
         /> */}
         <p className={`${styles.paragraph} mt-4 max-w-[312px]`}>
-          A new way to make the payments easy, reliable and secure.
+          Empowering rural communities through sustainable enterprises and
+          digital innovation, JPM Society transforms local resources into
+          lasting livelihoods.
         </p>
       </div>
 
-      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10 text-white">
+      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10 text-black">
         {footerLinks.map((footerlink) => (
           <div
             key={footerlink.title}
             className={`flex flex-col ss:my-0 my-4 min-w-[150px]`}
           >
-            <h4 className="font-poppins font-medium text-3xl leading-[27px] ">
+            <h4 className="font-nexa font-medium text-3xl leading-[27px] ">
               {footerlink.title}
             </h4>
             <ul className="list-none mt-4">
@@ -70,7 +71,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <h1 className="text-2xl tracking-widest text-white">DOMinating Squad</h1>
+    <h1 className="text-2xl tracking-widest text-black">DOMinating Squad</h1>
   </section>
 );
 

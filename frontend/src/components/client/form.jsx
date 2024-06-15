@@ -34,6 +34,8 @@ const FormComponent = ({ products }) => {
 
     const formData = { ...values, products };
 
+    console.log(formData);
+
     try {
       await sendContactForm(formData);
       setTouched({});
