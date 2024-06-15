@@ -17,14 +17,15 @@ const Login = () => {
     console.log("Role:", role);
 
     try {
-      const result = await axios.post("http://localhost:5000/login", {
+      const result = await axios.post("http://localhost:5000/user/signin", {
         email,
         password,
         role,
       });
-      if (result.data.status === "success") {
+      if (result.status === 200) {
         const userDetails = { email, password, role };
         localStorage.setItem("user", JSON.stringify(userDetails));
+        console.log(result.data);
 
         // Navigate based on the role
         switch (role) {
@@ -42,6 +43,7 @@ const Login = () => {
             break;
         }
       } else {
+        console.log(result.status);
         console.log("Login failed:", result.data);
       }
     } catch (err) {
