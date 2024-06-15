@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import "./cluster.css";
@@ -34,16 +34,33 @@ export default function CardWithForm() {
   const [sku_id, setSku_id] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]); // State to hold categories fetched from API
   const [previewImage, setPreviewImage] = useState(null);
 
   const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || user.role !== "cluster-admin") {
       navigate("*");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    // Function to fetch categories from API
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/masterAdmin/getCategory"
+        ); // Adjust URL as per your backend API
+        setCategories(response.data); // Assuming API response is an array of category objects
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories(); // Call the function to fetch categories on component mount
+  }, []); // Empty dependency array ensures this effect runs only once
 
   const handlePictureChange = async (e) => {
     const file = e.target.files[0];
@@ -198,11 +215,11 @@ export default function CardWithForm() {
                       <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent position="popper">
-                      <SelectItem value="terracotta">Terracotta</SelectItem>
-                      <SelectItem value="banana fibre">Banana Fibre</SelectItem>
-                      <SelectItem value="muj">Muj</SelectItem>
-                      <SelectItem value="markam">Markam</SelectItem>
-                      <SelectItem value="jute">Jute</SelectItem>
+                      {categories.map((category) => (
+                        <SelectItem key={category._id} value={category.name}>
+                          {category.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
