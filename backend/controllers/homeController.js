@@ -1,6 +1,6 @@
-const Product =require("../models/admin")
+const Product =require("../models/product")
 
-module.exports.get=async function(req,res){
+module.exports.getProducts=async function(req,res){
     try {
         const products = await Product.find();
         res.status(200).json(products);

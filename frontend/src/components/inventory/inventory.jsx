@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -19,73 +19,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import * as Dialog from '@radix-ui/react-dialog';
-
-
-const initialProducts = [
-  {
-    product_id: "PROD001",
-    sku_id: "SKU001",
-    product_name: "Product 1",
-    quantity: 10,
-    amount: 250.00,
-    status: "Pending",
-  },
-  {
-    product_id: "PROD002",
-    sku_id: "SKU002",
-    product_name: "Product 2",
-    quantity: 15,
-    amount: 150.00,
-    status: "Pending",
-  },
-  {
-    product_id: "PROD003",
-    sku_id: "SKU003",
-    product_name: "Product 3",
-    quantity: 5,
-    amount: 350.00,
-    status: "Pending",
-  },
-  {
-    product_id: "PROD004",
-    sku_id: "SKU004",
-    product_name: "Product 4",
-    quantity: 20,
-    amount: 450.00,
-    status: "Pending",
-  },
-  {
-    product_id: "PROD005",
-    sku_id: "SKU005",
-    product_name: "Product 5",
-    quantity: 8,
-    amount: 550.00,
-    status: "Pending",
-  },
-  {
-    product_id: "PROD006",
-    sku_id: "SKU006",
-    product_name: "Product 6",
-    quantity: 12,
-    amount: 200.00,
-    status: "Pending",
-  },
-  {
-    product_id: "PROD007",
-    sku_id: "SKU007",
-    product_name: "Product 7",
-    quantity: 25,
-    amount: 300.00,
-    status: "Pending",
-  },
-];
+import axios from 'axios';
 
 export default function TableDemo() {
-  const [products, setProducts] = useState(initialProducts);
+  const [products, setProducts] = useState([]);
   const [editableProduct, setEditableProduct] = useState(null);
   const [formData, setFormData] = useState({});
   const [activeActionMenu, setActiveActionMenu] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  useEffect(() => {
+    // Fetch products from the backend
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/getProducts'); // Adjust the URL to your API endpoint
+        setProducts(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleEdit = (product) => {
     setEditableProduct(product.product_id);
@@ -103,40 +59,63 @@ export default function TableDemo() {
     setFormData(updatedFormData);
   };
 
-  const handleSave = () => {
-    setProducts((prevProducts) =>
-      prevProducts.map((prod) =>
-        prod.product_id === formData.product_id ? formData : prod
-      )
-    );
-    setEditableProduct(null);
+  const handleSave = async () => {
+    try {
+      await axios.put(`http://localhost:5000/products/${formData.product_id}`, formData); // Adjust the URL to your API endpoint
+      setProducts((prevProducts) =>
+        prevProducts.map((prod) =>
+          prod.product_id === formData.product_id ? formData : prod
+        )
+      );
+      setEditableProduct(null);
+    } catch (error) {
+      console.error("Error saving product:", error);
+    }
   };
 
-  const handleDelete = (productId) => {
-    setProducts(products.filter((product) => product.product_id !== productId));
-    setActiveActionMenu(null);
+  const handleDelete = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:5000/products/${productId}`); // Adjust the URL to your API endpoint
+      setProducts(products.filter((product) => product.product_id !== productId));
+      setActiveActionMenu(null);
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
   };
 
-  const calculateTotalAmount = () => {
-    return products.reduce((total, product) => total + parseFloat(product.amount), 0).toFixed(2);
+  const calculateTotalprice = () => {
+    return products.reduce((total, product) => total + parseFloat(product.price), 0).toFixed(2);
   };
 
-  const handleApprove = () => {
-    setProducts(products.map((product) =>
-      product.product_id === selectedProduct.product_id
-        ? { ...product, status: "Approved" }
-        : product
-    ));
-    setSelectedProduct(null);
+  const handleApprove = async () => {
+    try {
+      const updatedProduct = { ...selectedProduct, sub_admin_approved: true };
+      console.log(updatedProduct);
+      await axios.post(`http://localhost:5000/subAdmin/updateProduct`, updatedProduct); // Adjust the URL to your API endpoint
+      setProducts(products.map((product) =>
+        product._id === selectedProduct._id
+          ? updatedProduct
+          : product
+      ));
+      setSelectedProduct(null);
+    } catch (error) {
+      console.error("Error approving product:", error);
+    }
   };
 
-  const handleReject = () => {
-    setProducts(products.map((product) =>
-      product.product_id === selectedProduct.product_id
-        ? { ...product, status: "Rejected" }
-        : product
-    ));
-    setSelectedProduct(null);
+  const handleReject = async () => {
+    try {
+      const updatedProduct = { ...selectedProduct, status: "Rejected" };
+      await axios.put(`http://localhost:5000/products/${selectedProduct.product_id}`, updatedProduct); // Adjust the URL to your API endpoint
+      setProducts(products.map((product) =>
+        product.product_id === selectedProduct.product_id
+          ? updatedProduct
+          : product
+      ));
+      setSelectedProduct(null);
+    } catch (error) {
+      console.error("Error rejecting product:", error);
+    }
   };
 
   const handleProductClick = (product) => {
@@ -154,27 +133,27 @@ export default function TableDemo() {
             <TableHead>Product_Name</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="text-right">price</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {products.map((product) => (
-            <TableRow key={product.product_id} onClick={() => handleProductClick(product)}>
+            <TableRow key={product._id} onClick={() => handleProductClick(product)}>
               <TableCell className="font-medium">
-                {editableProduct === product.product_id ? (
+                {editableProduct === product._id ? (
                   <input
                     name="product_id"
-                    value={formData.product_id}
+                    value={formData._id}
                     onChange={handleChange}
                     disabled
                   />
                 ) : (
-                  product.product_id
+                  product._id
                 )}
               </TableCell>
               <TableCell>
-                {editableProduct === product.product_id ? (
+                {editableProduct === product._id ? (
                   <input
                     name="sku_id"
                     value={formData.sku_id}
@@ -185,18 +164,18 @@ export default function TableDemo() {
                 )}
               </TableCell>
               <TableCell>
-                {editableProduct === product.product_id ? (
+                {editableProduct === product._id ? (
                   <input
                     name="product_name"
                     value={formData.product_name}
                     onChange={handleChange}
                   />
                 ) : (
-                  product.product_name
+                  product.name
                 )}
               </TableCell>
               <TableCell>
-                {editableProduct === product.product_id ? (
+                {editableProduct === product._id ? (
                   <input
                     name="quantity"
                     type="number"
@@ -208,7 +187,7 @@ export default function TableDemo() {
                 )}
               </TableCell>
               <TableCell>
-                {editableProduct === product.product_id ? (
+                {editableProduct === product._id ? (
                   <input
                     name="status"
                     value={formData.status}
@@ -219,28 +198,28 @@ export default function TableDemo() {
                 )}
               </TableCell>
               <TableCell className="text-right">
-                {editableProduct === product.product_id ? (
+                {editableProduct === product._id ? (
                   <input
-                    name="amount"
-                    value={formData.amount}
+                    name="price"
+                    value={formData.price}
                     onChange={handleChange}
                   />
                 ) : (
-                  `$${product.amount}`
+                  `$${product.price}`
                 )}
               </TableCell>
               <TableCell>
-                {editableProduct === product.product_id ? (
+                {editableProduct === product._id ? (
                   <div>
                     <button onClick={handleSave}>Save</button>
                     <button onClick={() => setEditableProduct(null)}>Cancel</button>
                   </div>
                 ) : (
                   <div className="relative">
-                    <button onClick={() => setActiveActionMenu(product.product_id)}>
+                    <button onClick={() => setActiveActionMenu(product._id)}>
                       &#x22EE;
                     </button>
-                    {activeActionMenu === product.product_id && (
+                    {activeActionMenu === product._id && (
                       <div className="absolute right-0 z-10 mt-2 w-28 bg-white border border-gray-300 rounded-lg shadow-lg">
                         <button
                           className="block w-full px-4 py-2 text-left"
@@ -250,7 +229,7 @@ export default function TableDemo() {
                         </button>
                         <button
                           className="block w-full px-4 py-2 text-left"
-                          onClick={() => handleDelete(product.product_id)}
+                          onClick={() => handleDelete(product._id)}
                         >
                           Delete
                         </button>
@@ -265,7 +244,7 @@ export default function TableDemo() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={5}>Total</TableCell>
-            <TableCell className="text-right">${calculateTotalAmount()}</TableCell>
+            <TableCell className="text-right">${calculateTotalprice()}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>
@@ -286,7 +265,7 @@ export default function TableDemo() {
                         <Label htmlFor="product_id">Product ID</Label>
                         <Input
                           id="product_id"
-                          value={selectedProduct.product_id}
+                          value={selectedProduct._id}
                           disabled
                         />
                       </div>
@@ -294,8 +273,7 @@ export default function TableDemo() {
                         <Label htmlFor="product_name">Product Name</Label>
                         <Input
                           id="product_name"
-                          value={selectedProduct.product_name}
-                          disabled
+                          value={selectedProduct.name}
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">
@@ -311,7 +289,6 @@ export default function TableDemo() {
                         <Input
                           id="quantity"
                           value={selectedProduct.quantity}
-                          disabled={selectedProduct.status !== "Pending"}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
@@ -321,15 +298,14 @@ export default function TableDemo() {
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">
-                        <Label htmlFor="amount">Amount</Label>
+                        <Label htmlFor="price">price</Label>
                         <Input
-                          id="amount"
-                          value={selectedProduct.amount}
-                          disabled={selectedProduct.status !== "Pending"}
+                          id="price"
+                          value={selectedProduct.price}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
-                              amount: parseFloat(e.target.value),
+                              price: parseFloat(e.target.value),
                             })
                           }
                         />
@@ -371,4 +347,3 @@ export default function TableDemo() {
     </div>
   );
 }
-
