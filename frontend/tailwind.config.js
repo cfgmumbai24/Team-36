@@ -21,6 +21,9 @@ module.exports = {
         customBlue: {
           DEFAULT: '#6835f6',
         },
+        customYellow: {
+          DEFAULT: '#f2edd8',
+        },
         customGray: {
           DEFAULT: '#f1e9e6',
         },

@@ -19,8 +19,9 @@ const Login = () => {
     try {
       const result = await axios.post('http://localhost:5000/login', { email, password, role });
       if (result.data.status === "success") {
-        localStorage.setItem('user', JSON.stringify(result.data.user));
-        
+        const userDetails = { email, password, role };
+        localStorage.setItem('user', JSON.stringify(userDetails));
+
         // Navigate based on the role
         switch (role) {
           case 'master-admin':
