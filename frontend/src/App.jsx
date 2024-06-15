@@ -1,4 +1,3 @@
-
 import { Button } from "./components/ui/button";
 import React, { Suspense } from "react";
 import {
@@ -7,7 +6,9 @@ import {
   Route,
   BrowserRouter,
 } from "react-router-dom";
-
+import Navbar from "./components/navbar";
+import Footer from "./components/footer";
+import Client from "./components/client/index";
 
 const Home = React.lazy(() => import("./components/home/index"));
 const Login = React.lazy(() => import("./components/login/index"));
@@ -18,48 +19,22 @@ const NotFound = React.lazy(() => import("./components/notfound/404page"));
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Suspense>
-              <Home />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Suspense>
-              <Login/>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <Suspense>
-              <Signup/>
-            </Suspense>
-          }
-        />
-        <Route
-          path="/cluster"
-          element={
-            <Suspense>
-              <Cluster/>
-            </Suspense>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <Suspense>
-              <NotFound />
-            </Suspense>
-          }
-        ></Route>
-      </Routes>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/cluster" element={<Cluster />} />
+              <Route path="/client" element={<Client />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 };
