@@ -23,8 +23,24 @@ const Login = () => {
       });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
+
+  const isLoggedIn = !!localStorage.getItem('user');
+
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
+    <div className="relative flex justify-center items-center min-h-screen bg-gray-800">
+      <Link to='/'>
+      <button
+          className="absolute top-4 right-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
+        >
+          Home
+        </button>
+      </Link>
+        
+      
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         <form onSubmit={handleSubmit}>

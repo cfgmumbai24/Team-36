@@ -18,6 +18,15 @@ module.exports = {
     },
     extend: {
       colors: {
+        customBlue: {
+          DEFAULT: '#6835f6',
+        },
+        customGray: {
+          DEFAULT: '#f1e9e6',
+        },
+        customOrange: {
+          DEFAULT: '#ec8454',
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
