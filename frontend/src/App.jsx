@@ -8,9 +8,11 @@ import {
   BrowserRouter,
 } from "react-router-dom";
 
+
 const Home = React.lazy(() => import("./components/home/index"));
 const Login = React.lazy(() => import("./components/login/index"));
 const Signup = React.lazy(() => import("./components/signup/index"));
+const Cluster = React.lazy(() => import("./components/cluster/index"));
 const NotFound = React.lazy(() => import("./components/notfound/404page"));
 
 const App = () => {
@@ -38,6 +40,14 @@ const App = () => {
           element={
             <Suspense>
               <Signup/>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/cluster"
+          element={
+            <Suspense>
+              <Cluster/>
             </Suspense>
           }
         />
