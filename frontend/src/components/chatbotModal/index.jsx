@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Chatbot from '../chatbot/index';
-
+import { FaRobot } from "react-icons/fa";
 const ChatbotModal = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -14,7 +14,7 @@ const ChatbotModal = () => {
         onClick={toggleModal}
         className="fixed bottom-4 right-4 bg-blue-500 text-white p-4 rounded-full shadow-lg"
       >
-        ChatBOT!
+        <FaRobot  className='h-6 w-6'/>
       </button>
 
       {isOpen && (
