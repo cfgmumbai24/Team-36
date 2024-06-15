@@ -10,11 +10,10 @@ const Navbar = () => {
     <nav
       className="w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20"
       style={{
-        background: "#F08000",
+        background: "#ef652220",
         boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-        backdropFilter: "blur(10px)",
-        WebkitBackdropFilter: "blur(5px)",
-        border: "1px solid rgba(255, 255, 255, 0.3)",
+        backdropFilter: "blur(50px)",
+        WebkitBackdropFilter: "blur(10px)",
       }}
     >
       {/* Logo and brand name */}
@@ -24,7 +23,7 @@ const Navbar = () => {
       </div> */}
 
       {/* Desktop navigation */}
-      <ul className="list-none sm:flex hidden justify-end items-center flex-1 text-white">
+      <ul className="list-none sm:flex hidden justify-end items-center flex-1 text-black">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}

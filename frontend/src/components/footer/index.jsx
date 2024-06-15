@@ -9,11 +9,11 @@ const Footer = () => (
     className={`${styles.flexCenter} ${styles.paddingY} flex-col px-4 md:px-8 lg:px-16 xl:px-20`}
     data-aos="fade-up"
     style={{
-      background: "#F08000",
+      background: "#ef652220",
+      borderRadius: "16px",
       boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-      backdropFilter: "blur(10px)",
-      WebkitBackdropFilter: "blur(5px)",
-      border: "1px solid rgba(255, 255, 255, 0.3)",
+      backdropFilter: "blur(50px)",
+      WebkitBackdropFilter: "blur(10px)",
     }}
   >
     <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
@@ -28,7 +28,7 @@ const Footer = () => (
         </p>
       </div>
 
-      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10 text-white">
+      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10 text-black">
         {footerLinks.map((footerlink) => (
           <div
             key={footerlink.title}
@@ -70,7 +70,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <h1 className="text-2xl tracking-widest text-white">DOMinating Squad</h1>
+    <h1 className="text-2xl tracking-widest text-black">DOMinating Squad</h1>
   </section>
 );
 

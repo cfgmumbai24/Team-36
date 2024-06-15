@@ -11,15 +11,15 @@ const Subadmin = () => {
     switch (activeTab) {
       case "tab1":
         return <TableDemo />; // inventory
-    //   case "tab2":
-    //     return <ComponentB />; // approvals
+      //   case "tab2":
+      //     return <ComponentB />; // approvals
       default:
         return <TableDemo />;
     }
   };
 
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-[#ef652220]">
       <nav className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-2xl font-bold">Subadmin Dashboard</h1>
@@ -43,9 +43,7 @@ const Subadmin = () => {
           </div>
         </div>
       </nav>
-      <div className="container mx-auto px-4 py-8">
-        {renderContent()}
-      </div>
+      <div className="container mx-auto px-4 py-8">{renderContent()}</div>
     </main>
   );
 };
