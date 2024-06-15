@@ -5,6 +5,7 @@ import FormComponent from "./form";
 const Client = () => {
 
   const[products,setProducts]=useState([])
+  const[selectedProducts,setSelectedProducts]=useState([])
 
   useEffect(() => {
     fetch(`http://localhost:5000/getProducts`, {
@@ -22,6 +23,8 @@ const Client = () => {
     });
   }, [])
 
+
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Product Items</h1>
@@ -30,7 +33,7 @@ const Client = () => {
           <ProductCard
             key={product._id}
             product={product}
-            selectedProducts={selectedProducts}
+            selectedProducts={[]}
             onProductUpdate={handleProductUpdate}
           />
         ))}
