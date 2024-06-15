@@ -6,5 +6,6 @@ import facebook from "./facebook.svg";
 import instagram from "./instagram.svg";
 import linkedin from "./linkedin.svg";
 import twitter from "./twitter.svg";
+import eye from "./eye.svg";
 
-export { logo, send, menu, close, facebook, instagram, linkedin, twitter };
+export { logo, send, menu, close, facebook, instagram, linkedin, twitter, eye };

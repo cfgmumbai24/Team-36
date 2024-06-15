@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import './cluster.css';
+import "./cluster.css";
 import {
   Card,
   CardContent,
@@ -21,6 +21,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify"; // Import ToastContainer and toast
+import "react-toastify/dist/ReactToastify.css";
 import backgroundImage from "../../assets/images/background.svg";
 
 export default function CardWithForm() {
@@ -33,6 +35,7 @@ export default function CardWithForm() {
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]); // State to hold categories fetched from API
+  const [previewImage, setPreviewImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -47,7 +50,9 @@ export default function CardWithForm() {
     // Function to fetch categories from API
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/masterAdmin/getCategory"); // Adjust URL as per your backend API
+        const response = await axios.get(
+          "http://localhost:5000/masterAdmin/getCategory"
+        ); // Adjust URL as per your backend API
         setCategories(response.data); // Assuming API response is an array of category objects
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -78,6 +83,7 @@ export default function CardWithForm() {
       setShape(response.data.details.shape);
       setSku_id(response.data.details.SKU);
       setPicture(response.data.imageBase64);
+      setPreviewImage(URL.createObjectURL(file)); // Create a preview URL for the image
     } catch (error) {
       console.error("Error generating image details:", error);
     }
@@ -110,8 +116,22 @@ export default function CardWithForm() {
         }
       );
       console.log("Add Product Response:", response.data);
+      // Show success toast
+      toast.success("Product added successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+
+      // Reset form fields
+      setName("");
+      setCategory("");
+      setQuantity("");
+      setColor("");
+      setShape("");
+      setSku_id("");
+      setPicture(null);
+      setPreviewImage(null);
       // Reload the page after successful submission
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -136,7 +156,7 @@ export default function CardWithForm() {
         }}
       >
         {loading && (
-          <div className="absolute inset-0 flex justify-center items-center bg-gray-700 bg-opacity-50 z-50">
+          <div className="fixed inset-0 flex justify-center items-center bg-gray-700 bg-opacity-50 z-50 h-[100vh] w-full">
             <div className="loader-box flex flex-col items-center bg-white p-4 rounded shadow-lg">
               <div className="loader mb-2"></div>
               <div className="text">Please wait...</div>
@@ -171,11 +191,13 @@ export default function CardWithForm() {
                 </div>
                 <div className="relative grid w-full max-w-sm items-center gap-1.5">
                   <Label htmlFor="picture">Picture</Label>
-                  <Input
-                    id="picture"
-                    type="file"
-                    onChange={handlePictureChange}
-                  />
+                  <div className="flex items-center space-x-2">
+                    <Input
+                      id="picture"
+                      type="file"
+                      onChange={handlePictureChange}
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="quantity">Quantity</Label>
@@ -212,6 +234,25 @@ export default function CardWithForm() {
           </CardContent>
         </Card>
       </div>
+      {previewImage && (
+        <div className="flex justify-center items-center bg-gray-700 bg-opacity-50 z-50">
+          <div className="bg-white p-4 rounded shadow-lg">
+            <img
+              src={previewImage}
+              alt="Preview"
+              className="max-w-full h-auto"
+            />
+            <Button
+              variant="outline"
+              onClick={() => setPreviewImage(null)}
+              className="mt-2"
+            >
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
+      <ToastContainer />
     </div>
   );
 }
