@@ -45,10 +45,11 @@ module.exports.updateQuantity = async function(req, res) {
 
 module.exports.updateProduct = async function(req, res) {
     try {
-        const { _id, quantity, description, sub_admin_approved } = req.body; // Extract fields from the request body
+        const { _id, price, quantity, description, sub_admin_approved } = req.body; // Extract fields from the request body
 
         // Build the update object conditionally
         let updateData = {};
+        if (price !== undefined) updateData.price = price;
         if (quantity !== undefined) updateData.quantity = quantity;
         if (description !== undefined) updateData.description = description;
         if (sub_admin_approved !== undefined) updateData.sub_admin_approved = sub_admin_approved;

@@ -51,10 +51,9 @@ export default function TableDemo() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const updatedValue = name === 'quantity' ? parseInt(value, 10) : value;
     const updatedFormData = {
       ...formData,
-      [name]: updatedValue,
+      [name]: value,
     };
     setFormData(updatedFormData);
   };
@@ -81,10 +80,6 @@ export default function TableDemo() {
     } catch (error) {
       console.error("Error deleting product:", error);
     }
-  };
-
-  const calculateTotalprice = () => {
-    return products.reduce((total, product) => total + parseFloat(product.price), 0).toFixed(2);
   };
 
   const handleApprove = async () => {
@@ -133,7 +128,7 @@ export default function TableDemo() {
             <TableHead>Product_Name</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead className="text-right">price</TableHead>
+            <TableHead className="text-right">Price</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -201,6 +196,7 @@ export default function TableDemo() {
                 {editableProduct === product._id ? (
                   <input
                     name="price"
+                    type="number"
                     value={formData.price}
                     onChange={handleChange}
                   />
@@ -244,7 +240,7 @@ export default function TableDemo() {
         <TableFooter>
           <TableRow>
             <TableCell colSpan={5}>Total</TableCell>
-            <TableCell className="text-right">${calculateTotalprice()}</TableCell>
+            <TableCell className="text-right">{formData.price}</TableCell>
           </TableRow>
         </TableFooter>
       </Table>
@@ -292,7 +288,7 @@ export default function TableDemo() {
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
-                              quantity: parseInt(e.target.value, 10),
+                              quantity: e.target.value,
                             })
                           }
                         />
@@ -305,7 +301,7 @@ export default function TableDemo() {
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
-                              price: parseFloat(e.target.value),
+                              price: e.target.value,
                             })
                           }
                         />
