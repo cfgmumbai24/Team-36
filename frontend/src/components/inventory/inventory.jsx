@@ -54,7 +54,7 @@ export default function TableDemo() {
     const updatedValue = name === "quantity" ? parseInt(value, 10) : value;
     const updatedFormData = {
       ...formData,
-      [name]: updatedValue,
+      [name]: value,
     };
     setFormData(updatedFormData);
   };
@@ -148,7 +148,7 @@ export default function TableDemo() {
             <TableHead>Product_Name</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead className="text-right">price</TableHead>
+            <TableHead className="text-right">Price</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -219,6 +219,7 @@ export default function TableDemo() {
                 {editableProduct === product._id ? (
                   <input
                     name="price"
+                    type="number"
                     value={formData.price}
                     onChange={handleChange}
                   />
@@ -314,7 +315,7 @@ export default function TableDemo() {
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
-                              quantity: parseInt(e.target.value, 10),
+                              quantity: e.target.value,
                             })
                           }
                         />
@@ -327,7 +328,7 @@ export default function TableDemo() {
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
-                              price: parseFloat(e.target.value),
+                              price: e.target.value,
                             })
                           }
                         />

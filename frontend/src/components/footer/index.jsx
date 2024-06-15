@@ -10,7 +10,6 @@ const Footer = () => (
     data-aos="fade-up"
     style={{
       background: "#ef652220",
-      borderRadius: "16px",
       boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
       backdropFilter: "blur(50px)",
       WebkitBackdropFilter: "blur(10px)",
