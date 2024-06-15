@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useToast } from "@chakra-ui/react";
-import { sendContactForm } from "../../lib/api"; // Ensure the path is correct
+import { sendContactForm } from "../../lib/api";
 
 const FormComponent = ({ products }) => {
   const initValues = {
@@ -19,6 +19,7 @@ const FormComponent = ({ products }) => {
 
   const onBlur = ({ target }) =>
     setTouched((prev) => ({ ...prev, [target.name]: true }));
+
   const handleChange = ({ target }) =>
     setState((prev) => ({
       ...prev,
@@ -33,8 +34,6 @@ const FormComponent = ({ products }) => {
     setState((prev) => ({ ...prev, isLoading: true }));
 
     const formData = { ...values, products };
-
-    console.log(formData);
 
     try {
       await sendContactForm(formData);
