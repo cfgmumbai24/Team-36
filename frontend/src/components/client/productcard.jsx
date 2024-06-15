@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
@@ -34,7 +35,7 @@ const ProductCard = ({ product }) => {
   return (
     <div className="border p-4 rounded shadow-lg">
       <img
-        src={product.imageUrl}
+        src={product.image}
         alt={product.name}
         className="w-full h-64 object-cover mb-4 rounded"
       />

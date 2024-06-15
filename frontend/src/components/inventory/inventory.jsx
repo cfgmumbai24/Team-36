@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import * as Dialog from '@radix-ui/react-dialog';
 import axios from 'axios';
+import { Bold } from "lucide-react";
 
 export default function TableDemo() {
   const [products, setProducts] = useState([]);
@@ -123,8 +124,10 @@ export default function TableDemo() {
   };
 
   return (
-    <div className="justify-center">
-      <h1 className="my-10">INVENTORY MANAGEMENT</h1>
+    <div className="justify-center p-10">
+      <center>
+        <h1 className="my-10" style={{fontSize:"2rem"}}>INVENTORY MANAGEMENT</h1>
+      </center>
       <Table className="border-2 rounded-lg border-slate-800 ">
         <TableHeader>
           <TableRow className="text-center">
@@ -133,7 +136,6 @@ export default function TableDemo() {
             <TableHead>Product_Name</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead className="text-right">price</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -194,10 +196,11 @@ export default function TableDemo() {
                     onChange={handleChange}
                   />
                 ) : (
-                  product.status
+                  product.sub_admin_approved ? "Approved" : 'Pending'
                 )}
               </TableCell>
-              <TableCell className="text-right">
+
+              {/* <TableCell className="text-right">
                 {editableProduct === product._id ? (
                   <input
                     name="price"
@@ -207,7 +210,7 @@ export default function TableDemo() {
                 ) : (
                   `$${product.price}`
                 )}
-              </TableCell>
+              </TableCell> */}
               <TableCell>
                 {editableProduct === product._id ? (
                   <div>
@@ -241,19 +244,16 @@ export default function TableDemo() {
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TableCell colSpan={5}>Total</TableCell>
-            <TableCell className="text-right">${calculateTotalprice()}</TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
 
-      {selectedProduct && (
+      <br></br>
+      <br></br>
+      <br></br>
+      {! selectedProduct?.sub_admin_approved && (
         <Dialog.Root open={selectedProduct !== null} onOpenChange={() => setSelectedProduct(null)}>
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-            <Dialog.Content className="fixed inset-0 m-auto max-w-md bg-white p-6 rounded shadow-lg">
+            <Dialog.Content className="fixed inset-0 m-auto max-w-md bg-white p-6 rounded shadow-lg max-h-[100vh] overflow-y-auto my-3">
               <Card className="w-[350px] shadow-2xl">
                 <CardHeader>
                   <CardTitle>SUB-ADMIN APPROVAL</CardTitle>
@@ -265,7 +265,7 @@ export default function TableDemo() {
                         <Label htmlFor="product_id">Product ID</Label>
                         <Input
                           id="product_id"
-                          value={selectedProduct._id}
+                          value={selectedProduct?._id}
                           disabled
                         />
                       </div>
@@ -273,22 +273,31 @@ export default function TableDemo() {
                         <Label htmlFor="product_name">Product Name</Label>
                         <Input
                           id="product_name"
-                          value={selectedProduct.name}
+                          value={selectedProduct?.name}
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">
                         <Label htmlFor="sku_id">SKU_ID</Label>
                         <Input
                           id="sku_id"
-                          value={selectedProduct.sku_id}
+                          value={selectedProduct?.sku_id}
                           disabled
+                        />
+                      </div>
+                      <div className="flex flex-col space-y-1.5">
+                        <Label htmlFor="sku_id">Product Image</Label>
+                        <img
+                          id="sku_id"
+                          src={selectedProduct?.image}
+                          alt="Product Image"
+                          className="object-contain h-48 w-full"
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">
                         <Label htmlFor="quantity">Quantity</Label>
                         <Input
                           id="quantity"
-                          value={selectedProduct.quantity}
+                          value={selectedProduct?.quantity}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
@@ -301,7 +310,7 @@ export default function TableDemo() {
                         <Label htmlFor="price">price</Label>
                         <Input
                           id="price"
-                          value={selectedProduct.price}
+                          value={selectedProduct?.price}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,
@@ -314,7 +323,7 @@ export default function TableDemo() {
                         <Label htmlFor="description">Description</Label>
                         <Input
                           id="description"
-                          value={selectedProduct.description || ""}
+                          value={selectedProduct?.description || ""}
                           onChange={(e) =>
                             setSelectedProduct({
                               ...selectedProduct,

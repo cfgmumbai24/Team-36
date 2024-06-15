@@ -3,18 +3,19 @@ import UserCreation from "../usercreation";
 // import ComponentA from "./ComponentA";
 // import ComponentB from "./ComponentB";
 // import ComponentC from "./ComponentC";
+import AddCategory from "../addCategory";
 
 const MasterAdmin = () => {
   const [activeTab, setActiveTab] = useState("tab1");
 
   const renderContent = () => {
      switch (activeTab) {
-    //   case "tab1":
-    //     return <ComponentA />;
-    //   case "tab2":
-    //     return <ComponentB />;
-    //   case "tab3":
-    //     return <ComponentC />;
+      case "tab1":
+        // return <ComponentA />;
+      case "tab2":
+        return <AddCategory />;
+      case "tab3":
+        // return <ComponentC />;
        default:
          return <UserCreation/>;
      }
