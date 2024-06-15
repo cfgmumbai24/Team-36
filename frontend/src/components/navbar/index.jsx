@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
-  const navigate = useNavigate();
+  const navigate=useNavigate()
 
   return (
     <nav
@@ -29,12 +29,12 @@ const Navbar = () => {
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            onClick={() => navigate(`/${nav.id}`)}
-            className={`font-nexa font-normal cursor-pointer text-base ${
+            onClick={()=>navigate(`${nav.id}`)}
+            className={`font-poppins font-normal cursor-pointer text-base ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
-            <Link to={`/${nav.id}`}>{nav.title}</Link>
+            <Link href={"/user"}>{nav.title} </Link>
           </li>
         ))}
       </ul>
@@ -56,11 +56,11 @@ const Navbar = () => {
               {navLinks.map((nav, index) => (
                 <li
                   key={nav.id}
-                  className={`font-nexa font-normal cursor-pointer text-base py-2 px-4 ${
+                  className={`font-poppins font-normal cursor-pointer text-base py-2 px-4 ${
                     index === navLinks.length - 1 ? "border-b" : ""
                   }`}
                 >
-                  <Link to={`/${nav.id}`}>{nav.title}</Link>
+                  <Link href={"/user"}>{nav.title} </Link>
                 </li>
               ))}
             </ul>

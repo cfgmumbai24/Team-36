@@ -1,19 +1,33 @@
 import React, { useState } from "react";
 import UserCreation from "../usercreation";
+import TableDemo from "../inventorymaster";
 // import ComponentA from "./ComponentA";
 // import ComponentB from "./ComponentB";
 // import ComponentC from "./ComponentC";
 
+
+
 const MasterAdmin = () => {
+    React.useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+          console.log(user.role);
+        if (user.role==="master-admin") {
+          
+          // Redirect to login if user is not logged in
+        }else{
+          navigate("*")
+        }
+      })
+    
   const [activeTab, setActiveTab] = useState("tab1");
 
   const renderContent = () => {
     switch (activeTab) {
-      //   case "tab1":
+      //   case "Add Category":
       //     return <ComponentA />;
-      //   case "tab2":
-      //     return <ComponentB />;
-      //   case "tab3":
+         case "View Inventory":
+           return <TableDemo />;
+      //   case "Create Users":
       //     return <ComponentC />;
       default:
         return <UserCreation />;
@@ -37,36 +51,36 @@ const MasterAdmin = () => {
             <ul>
               <li>
                 <button
-                  onClick={() => setActiveTab("tab1")}
+                  onClick={() => setActiveTab("Add Category")}
                   className={`w-full text-left px-4 py-2 mb-2 rounded ${
                     activeTab === "tab1" ? "bg-[#F08000]" : "bg-gray-200"
                   }`}
                 >
-                  Tab 1
+                  Add Category
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => setActiveTab("tab2")}
+                  onClick={() => setActiveTab("View Inventory")}
                   className={`w-full text-left px-4 py-2 mb-2 rounded ${
                     activeTab === "tab2"
                       ? "bg-[#F08000] text-white"
                       : "bg-gray-200"
                   }`}
                 >
-                  Tab 2
+                  View Inventory
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => setActiveTab("tab3")}
+                  onClick={() => setActiveTab("Create Users")}
                   className={`w-full text-left px-4 py-2 rounded ${
                     activeTab === "tab3"
                       ? "bg-[#F08000] text-white"
                       : "bg-gray-200"
                   }`}
                 >
-                  Tab 3
+                  Create Users
                 </button>
               </li>
             </ul>

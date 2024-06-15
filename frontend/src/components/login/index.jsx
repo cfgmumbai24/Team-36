@@ -14,21 +14,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Log email, password, and role to the console
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Role:", role);
-
     try {
       const result = await axios.post("http://localhost:5000/user/signin", {
         email,
         password,
         role,
       });
+
       if (result.status === 200) {
         const userDetails = { email, password, role };
         localStorage.setItem("user", JSON.stringify(userDetails));
-        console.log(result.data);
+        console.log("Login successful:", result.data);
 
         // Show success toast
         toast.success(`Login successful! Welcome, ${email}.`);
@@ -52,7 +48,6 @@ const Login = () => {
           }
         }, 2000); // 2000 milliseconds delay (adjust as needed)
       } else {
-        console.log(result.status);
         console.log("Login failed:", result.data);
       }
     } catch (err) {
@@ -137,12 +132,7 @@ const Login = () => {
             Login
           </button>
         </form>
-        <p className="mt-4 text-center">Don't have an account?</p>
-        <Link to="/signup">
-          <button className="w-full mt-2 bg-[#D8543A] text-white py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
-            Register Now
-          </button>
-        </Link>
+
       </div>
       <ToastContainer />
     </div>
