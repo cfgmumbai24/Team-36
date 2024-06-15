@@ -10,6 +10,8 @@ import {
 
 
 const Home = React.lazy(() => import("./components/home/index"));
+const Subadmin = React.lazy(() => import("./components/subadmin/index"));
+const Masteradmin = React.lazy(() => import("./components/masteradmin/index"));
 const Login = React.lazy(() => import("./components/login/index"));
 const Signup = React.lazy(() => import("./components/signup/index"));
 const Cluster = React.lazy(() => import("./components/cluster/index"));
@@ -32,6 +34,22 @@ const App = () => {
           element={
             <Suspense>
               <Login/>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/subadmin"
+          element={
+            <Suspense>
+              <Subadmin/>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/masteradmin"
+          element={
+            <Suspense>
+              <Masteradmin/>
             </Suspense>
           }
         />
