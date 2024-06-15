@@ -4,12 +4,10 @@ import Footer from "../../components/footer/index";
 
 const Home = (props) => {
   return (
-    <>
-      <main className={"max-w-screen overflow-hidden"}>
-        <Navbar />
-        <Footer />
-      </main>
-    </>
+    <main className={"max-w-screen overflow-hidden"}>
+      <Navbar />
+      <Footer />
+    </main>
   );
 };
 

@@ -1,12 +1,39 @@
 import { Button } from "./components/ui/button";
+import React, { Suspense } from "react";
 
-function App() {
+import {
+  // BrowserRouter as Router,
+  Routes,
+  Route,
+  BrowserRouter,
+} from "react-router-dom";
+
+const Home = React.lazy(() => import("./components/home/index"));
+const NotFound = React.lazy(() => import("./components/notfound/404page"));
+
+const App = () => {
   return (
-    <>
-      <h1 className="my-20 mx-auto bg-red-500">hello world</h1>
-      <Button >Click ME</Button>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Suspense>
+              <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Suspense>
+              <NotFound />
+            </Suspense>
+          }
+        ></Route>
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
