@@ -70,3 +70,28 @@ module.exports.updateProduct = async function(req, res) {
         res.status(500).json({ error: "An error occurred while updating the product." });
     }
 };
+
+module.exports.deleteProduct= async function(req, res) {
+    try {
+        const productId = req.body._id;
+
+        // Ensure the productId is provided
+        if (!productId) {
+            return res.status(400).json({ message: 'Product ID is required.' });
+        }
+
+        // Attempt to delete the product
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+
+        // If no product is found, respond with an error
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Product not found.' });
+        }
+
+        // Respond with success message
+        res.status(200).json({ message: 'Product deleted successfully.' });
+    } catch (error) {
+        // Handle any errors
+        res.status(500).json({ message: 'An error occurred while deleting the product.', error: error.message });
+    }
+}
