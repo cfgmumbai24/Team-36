@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import TableDemo from "../inventory/inventory";
 // import ComponentA from "./ComponentA";
 // import ComponentB from "./ComponentB";
 
@@ -7,14 +8,14 @@ const Subadmin = () => {
   const [activeTab, setActiveTab] = useState("tab1");
 
   const renderContent = () => {
-    // switch (activeTab) {
-    //   case "tab1":
-    //     return <ComponentA />; // inventory
+    switch (activeTab) {
+      case "tab1":
+        return <TableDemo />; // inventory
     //   case "tab2":
     //     return <ComponentB />; // approvals
-    //   default:
-    //     return <ComponentA />;
-    // }
+      default:
+        return <TableDemo />;
+    }
   };
 
   return (
