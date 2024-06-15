@@ -3,11 +3,11 @@ const Product = require('../models/product');
 
 module.exports.subAdminApproval= async function(req, res) {
     try {
-        const { id } = req.body; // Assuming the product ID is sent in the request body
+        const { _id } = req.body; // Assuming the product ID is sent in the request body
 
         // Find the product by product_id or _id and update the approval field to true
         const product = await Product.findOneAndUpdate(
-            { _id: id }, // Adjust this if you are using product_id or another identifier
+            { _id: _id }, // Adjust this if you are using product_id or another identifier
             { sub_admin_approved: true },
         );
 
@@ -45,16 +45,18 @@ module.exports.updateQuantity = async function(req, res) {
 
 module.exports.updateProduct = async function(req, res) {
     try {
-        const { id, quantity, description } = req.body; // Extract fields from the request body
+        const { _id, price, quantity, description, sub_admin_approved } = req.body; // Extract fields from the request body
 
         // Build the update object conditionally
         let updateData = {};
+        if (price !== undefined) updateData.price = price;
         if (quantity !== undefined) updateData.quantity = quantity;
         if (description !== undefined) updateData.description = description;
+        if (sub_admin_approved !== undefined) updateData.sub_admin_approved = sub_admin_approved;
 
         // Find the product by ID and update its details
         const product = await Product.findByIdAndUpdate(
-            id, // Using the product's unique ID
+            _id, // Using the product's unique ID
             updateData, // The updates to be applied
         );
 

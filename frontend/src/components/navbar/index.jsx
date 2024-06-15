@@ -2,12 +2,22 @@ import React, { useState } from "react";
 import { close, logo, menu } from "../../assets";
 import { navLinks } from "../../constants";
 import { Img } from "react-image";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const navigate=useNavigate()
+
   return (
-    <nav className="bg-customGray w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20 max-sm:bg-blue">
+    <nav
+      className="w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20"
+      style={{
+        background: "#ef652220",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(50px)",
+        WebkitBackdropFilter: "blur(10px)",
+      }}
+    >
       {/* Logo and brand name */}
       {/* <div className="flex items-center cursor-pointer">
         <Img src={logo} alt="logo" height={50} width={50} />
@@ -19,6 +29,7 @@ const Navbar = () => {
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
+            onClick={()=>navigate(`${nav.id}`)}
             className={`font-poppins font-normal cursor-pointer text-base ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}

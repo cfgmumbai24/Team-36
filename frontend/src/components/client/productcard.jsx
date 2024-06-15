@@ -2,14 +2,32 @@ import React, { useState } from "react";
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
+  const [selectedProducts, setSelectedProducts] = useState([]);
+
+  const updateProductArray = (product, quantity) => {
+    const updatedProducts = selectedProducts.map((p) =>
+      p.id === product.id ? { ...p, quantity } : p
+    );
+
+    if (!updatedProducts.some((p) => p.id === product.id)) {
+      updatedProducts.push({ ...product, quantity });
+    }
+
+    setSelectedProducts(updatedProducts);
+    console.log("Selected Products:", updatedProducts);
+  };
 
   const handleIncrement = () => {
-    setQuantity(quantity + 1);
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    updateProductArray(product, newQuantity);
   };
 
   const handleDecrement = () => {
     if (quantity > 0) {
-      setQuantity(quantity - 1);
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      updateProductArray(product, newQuantity);
     }
   };
 

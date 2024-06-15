@@ -6,8 +6,14 @@ import { Link } from "react-router-dom";
 
 const Footer = () => (
   <section
-    className={`${styles.flexCenter} ${styles.paddingY} flex-col px-4 md:px-8 lg:px-16 xl:px-20 bg-customGray`}
+    className={`${styles.flexCenter} ${styles.paddingY} flex-col px-4 md:px-8 lg:px-16 xl:px-20`}
     data-aos="fade-up"
+    style={{
+      background: "#ef652220",
+      boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+      backdropFilter: "blur(50px)",
+      WebkitBackdropFilter: "blur(10px)",
+    }}
   >
     <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>
       <div className="flex-[1] flex flex-col justify-start">
@@ -21,7 +27,7 @@ const Footer = () => (
         </p>
       </div>
 
-      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10">
+      <div className="flex-[1.5] w-full flex flex-row justify-between flex-wrap md:mt-0 mt-10 text-black">
         {footerLinks.map((footerlink) => (
           <div
             key={footerlink.title}
@@ -34,7 +40,7 @@ const Footer = () => (
               {footerlink.links.map((link, index) => (
                 <li
                   key={link.name}
-                  className={`text-[16px] leading-[24px] cursor-pointer ${
+                  className={`text-[16px] leading-[24px] cursor-pointer${
                     index !== footerlink.links.length - 1 ? "mb-4" : "mb-0"
                   }`}
                 >
@@ -63,7 +69,7 @@ const Footer = () => (
       </div>
     </div>
 
-    <h1 className="text-2xl tracking-widest">DOMinating Squad</h1>
+    <h1 className="text-2xl tracking-widest text-black">DOMinating Squad</h1>
   </section>
 );
 

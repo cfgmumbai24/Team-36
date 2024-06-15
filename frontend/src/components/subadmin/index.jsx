@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import TableDemo from "../inventory/inventory";
 // import ComponentA from "./ComponentA";
 // import ComponentB from "./ComponentB";
 
@@ -7,18 +8,18 @@ const Subadmin = () => {
   const [activeTab, setActiveTab] = useState("tab1");
 
   const renderContent = () => {
-    // switch (activeTab) {
-    //   case "tab1":
-    //     return <ComponentA />; // inventory
-    //   case "tab2":
-    //     return <ComponentB />; // approvals
-    //   default:
-    //     return <ComponentA />;
-    // }
+    switch (activeTab) {
+      case "tab1":
+        return <TableDemo />; // inventory
+      //   case "tab2":
+      //     return <ComponentB />; // approvals
+      default:
+        return <TableDemo />;
+    }
   };
 
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-[#ef652220]">
       <nav className="bg-white shadow-md">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-2xl font-bold">Subadmin Dashboard</h1>
@@ -42,9 +43,7 @@ const Subadmin = () => {
           </div>
         </div>
       </nav>
-      <div className="container mx-auto px-4 py-8">
-        {renderContent()}
-      </div>
+      <div className="container mx-auto px-4 py-8">{renderContent()}</div>
     </main>
   );
 };

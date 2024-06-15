@@ -11,6 +11,7 @@ import Footer from "./components/footer";
 import Client from "./components/client/index";
 
 const Home = React.lazy(() => import("./components/home/index"));
+const Inventory = React.lazy(() => import("./components/inventory/inventory"));
 const Subadmin = React.lazy(() => import("./components/subadmin/index"));
 const Masteradmin = React.lazy(() => import("./components/masteradmin/index"));
 const Login = React.lazy(() => import("./components/login/index"));
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/masteradmin" element={<Masteradmin />} />
               <Route path="/subadmin" element={<Subadmin />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/inventory" element={<Inventory />} />
             </Routes>
           </Suspense>
         </main>
