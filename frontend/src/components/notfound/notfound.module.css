@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  background-color: black;
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.top {
+  margin: auto;
+}
+
+.oops {
+  font-size: 7rem;
+  font-weight: bold;
+}
+
+.h4 {
+  font-size: 1.25rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  font-weight: 600;
+}
+
+.span {
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #fff;
+}
+
+.text {
+  font-size: 1rem;
+}
+
+.link {
+  text-decoration: underline;
+  font-weight: 700;
+  color: #fff;
+}
+
+.aaruushlogo {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2.5rem;
+  justify-content: center;
+}
+
+.aaruushlogo img {
+  width: 20%;
+}
+
+.envisionlogodiv {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 2.5rem;
+}
+
+.envisionlogo img {
+  width: 50%;
+  margin-top: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .h4 {
+    font-size: 1.875rem;
+  }
+  .text {
+    font-size: 1.25rem;
+  }
+  .aaruushlogo img {
+    width: 50%;
+  }
+  .envisionlogo img {
+    width: 16.66667%;
+  }
+}
