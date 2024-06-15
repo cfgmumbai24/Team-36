@@ -6,6 +6,7 @@ const Client = () => {
 
   const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/getProducts`, {
@@ -39,6 +40,20 @@ const Client = () => {
     <div className="container mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">Product Items</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {products.length > 0 ? (
+          products.map((product) => (
+            <ProductCard
+              key={product._id}
+              product={product}
+              selectedProducts={[]} // Assuming you manage selectedProducts elsewhere
+              onProductUpdate={(updatedProducts) => {
+                // Logic to handle product update if needed
+              }}
+            />
+          ))
+        ) : (
+          <p>No products available</p>
+        )}
         {products.map((product) => (
           <ProductCard
             key={product._id}
@@ -48,9 +63,10 @@ const Client = () => {
           />
         ))}
       </div>
-      <FormComponent products={selectedProducts} />
+      <FormComponent products={[]} /> {/* Assuming selectedProducts management elsewhere */}
     </div>
   );
 };
 
 export default Client;
+

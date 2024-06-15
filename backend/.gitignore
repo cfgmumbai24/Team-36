@@ -1,3 +1,5 @@
 node_modules
-
+myenv
 .env
+myvenv
+__pycache__

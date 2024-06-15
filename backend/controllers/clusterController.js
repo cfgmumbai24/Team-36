@@ -2,7 +2,6 @@ const Product = require('../models/product');
 
 module.exports.addProduct = async function(req, res) {
     try {
-        console.log("here");
         const { name, category, quantity, shape, color, sku_id, image } = req.body;
         // const image= req.file;
         // if (!req.file) {
@@ -41,5 +40,23 @@ module.exports.addProduct = async function(req, res) {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "An error occurred while fetching products." });
+    }
+};
+
+module.exports.sendProductHistory = async function(req, res) {
+    try {
+        const { adminId } = req.params; // Assuming adminId is passed as a parameter
+
+        // Query products where admin field matches adminId
+        const products = await Product.find({ admin: adminId });
+
+        if (products.length === 0) {
+            return res.status(200).json({});
+        }
+
+        res.status(200).json({ products });
+    } catch (error) {
+        console.error('Error fetching product history:', error);
+        res.status(500).json({ error: 'An error occurred while fetching product history.' });
     }
 };
