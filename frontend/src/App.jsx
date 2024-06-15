@@ -10,6 +10,7 @@ import {
 
 const Home = React.lazy(() => import("./components/home/index"));
 const Login = React.lazy(() => import("./components/login/index"));
+const Signup = React.lazy(() => import("./components/signup/index"));
 const NotFound = React.lazy(() => import("./components/notfound/404page"));
 
 const App = () => {
@@ -32,7 +33,14 @@ const App = () => {
             </Suspense>
           }
         />
-        
+        <Route
+          path="/signup"
+          element={
+            <Suspense>
+              <Signup/>
+            </Suspense>
+          }
+        />
         <Route
           path="*"
           element={

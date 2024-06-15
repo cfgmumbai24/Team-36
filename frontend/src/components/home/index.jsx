@@ -13,6 +13,11 @@ const Home = (props) => {
           Go to Login
         </button></Link>
 
+        <Link to='/signup'><button>
+
+          Go to Signup
+        </button></Link>
+
       </div>
       <Footer />
     </main>

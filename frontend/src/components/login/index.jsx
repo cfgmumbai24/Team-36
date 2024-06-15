@@ -1,4 +1,3 @@
-// src/pages/loginpage.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -60,7 +59,7 @@ const Login = () => {
           </button>
         </form>
         <p className="mt-4 text-center">Don't have an account?</p>
-        <Link to='/register'>
+        <Link to='/signup'>
           <button className="w-full mt-2 bg-gray-500 text-white py-2 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
             Register Now
           </button>
