@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import backgroundImage from "../../assets/images/background.svg";
 
 export default function CardWithForm() {
   const [picture, setPicture] = useState(null);
@@ -29,14 +30,18 @@ export default function CardWithForm() {
   const handlePictureChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append("image", file);
 
     try {
-      const response = await axios.post("http://localhost:5000/generate", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:5000/generate",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       console.log("Generate Response:", response.data);
       setPicture(response.data.imageBase64); // Assuming you want to set the base64 string of the image
@@ -57,11 +62,15 @@ export default function CardWithForm() {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/clusterAdmin/addProduct", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.post(
+        "http://localhost:5000/clusterAdmin/addProduct",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       console.log("Add Product Response:", response.data);
     } catch (error) {
       console.error("Error adding product:", error);
@@ -69,66 +78,91 @@ export default function CardWithForm() {
   };
 
   return (
-    <div className="flex justify-center my-32">
-      <Card className="w-[350px] shadow-2xl">
-        <CardHeader>
-          <CardTitle>CLUSTER PORTAL</CardTitle>
-          <CardDescription>Upload the Image for Sub-Admin.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="grid w-full items-center gap-4">
-              <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  placeholder="Enter Name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
+    <div
+      className="min-h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div
+        className="flex justify-center items-center py-32"
+        style={{
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <Card
+          className="w-[350px] shadow-2xl"
+          style={{
+            background: "#F2DAC9",
+            borderRadius: "16px",
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            backdropFilter: "blur(50px)",
+            WebkitBackdropFilter: "blur(10px)",
+          }}
+        >
+          <CardHeader>
+            <CardTitle>CLUSTER PORTAL</CardTitle>
+            <CardDescription>Upload the Image for Sub-Admin.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit}>
+              <div className="grid w-full items-center gap-4">
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    placeholder="Enter Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="picture">Picture</Label>
+                  <Input
+                    id="picture"
+                    type="file"
+                    onChange={handlePictureChange}
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="quantity">Quantity</Label>
+                  <Input
+                    id="quantity"
+                    placeholder="Enter Quantity"
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                  />
+                </div>
+                <div className="flex flex-col space-y-1.5">
+                  <Label htmlFor="category">Categories</Label>
+                  <Select onValueChange={(value) => setCategory(value)}>
+                    <SelectTrigger id="category">
+                      <SelectValue placeholder="Select" />
+                    </SelectTrigger>
+                    <SelectContent position="popper">
+                      <SelectItem value="terracotta">Terracotta</SelectItem>
+                      <SelectItem value="banana fibre">Banana Fibre</SelectItem>
+                      <SelectItem value="muj">Muj</SelectItem>
+                      <SelectItem value="markam">Markam</SelectItem>
+                      <SelectItem value="jute">Jute</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-              <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="picture">Picture</Label>
-                <Input
-                  id="picture"
-                  type="file"
-                  onChange={handlePictureChange}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="quantity">Quantity</Label>
-                <Input
-                  id="quantity"
-                  placeholder="Enter Quantity"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="category">Categories</Label>
-                <Select onValueChange={(value) => setCategory(value)}>
-                  <SelectTrigger id="category">
-                    <SelectValue placeholder="Select" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value="terracotta">Terracotta</SelectItem>
-                    <SelectItem value="banana fibre">Banana Fibre</SelectItem>
-                    <SelectItem value="muj">Muj</SelectItem>
-                    <SelectItem value="markam">Markam</SelectItem>
-                    <SelectItem value="jute">Jute</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <CardFooter className="flex justify-between">
-              <Button variant="outline" type="button">
-                Cancel
-              </Button>
-              <Button type="submit">Submit</Button>
-            </CardFooter>
-          </form>
-        </CardContent>
-      </Card>
+              <CardFooter className="flex justify-between py-2">
+                <Button variant="outline" type="button">
+                  Cancel
+                </Button>
+                <Button type="submit">Submit</Button>
+              </CardFooter>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

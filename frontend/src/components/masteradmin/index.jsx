@@ -21,7 +21,7 @@ const MasterAdmin = () => {
   };
 
   return (
-    <main className="flex min-h-screen ">
+    <main className="flex min-h-screen">
       <aside
         className="w-64 shadow-md"
         style={{
@@ -32,16 +32,14 @@ const MasterAdmin = () => {
         }}
       >
         <div className="p-4">
-          <h2 className="text-2xl font-bold text-[#F08000]">Master Admin</h2>
+          <h2 className="text-2xl font-bold font-nexa">Master Admin</h2>
           <nav className="mt-4">
             <ul>
               <li>
                 <button
                   onClick={() => setActiveTab("tab1")}
                   className={`w-full text-left px-4 py-2 mb-2 rounded ${
-                    activeTab === "tab1"
-                      ? "bg-[#F08000] text-white"
-                      : "bg-gray-200"
+                    activeTab === "tab1" ? "bg-[#F08000]" : "bg-gray-200"
                   }`}
                 >
                   Tab 1
