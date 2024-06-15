@@ -11,10 +11,12 @@ const Home = (props) => {
           style={{ backgroundImage: `url(${landingImage})` }}
         ></div>
         <div className="relative p-8 rounded-lg shadow-lg text-center mx-4 lg:mx-0">
-          <h1 className="text-6xl font-bold mb-4 text-white">Welcome to Our Website</h1>
+          <h1 className="text-6xl font-bold mb-4 text-white">
+            Welcome to Our Website
+          </h1>
           <p className="text-lg mb-6 text-white">
-          More than a decade old organization founded by a group of like minded young social entrepreneurs
-
+            More than a decade old organization founded by a group of like
+            minded young social entrepreneurs
           </p>
           <div className="flex justify-center space-x-4 mb-4">
             <Link to="/login">
@@ -22,11 +24,10 @@ const Home = (props) => {
                 Go to Login
               </button>
             </Link>
-            
           </div>
           <div className="flex justify-center space-x-4">
             <Link to="/client">
-              <button className="px-4 py-2 bg-customOrange text-white rounded hover:bg-blue-600 transition duration-300">
+              <button className="px-4 py-2 bg-[#F08000] text-white rounded hover:bg-blue-600 transition duration-300">
                 Visit Our Marketplace
               </button>
             </Link>
@@ -45,7 +46,7 @@ const Home = (props) => {
                 users.
               </p>
             </div>
-            <div className="bg-customOrange p-6 rounded-lg shadow-lg">
+            <div className="bg-[#F08000] p-6 rounded-lg shadow-lg">
               <h3 className="text-white text-2xl font-bold mb-4">Service 2</h3>
               <p className="text-white">
                 Description of what service 2 entails and how it benefits the
