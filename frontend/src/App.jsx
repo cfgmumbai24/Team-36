@@ -1,6 +1,6 @@
+
 import { Button } from "./components/ui/button";
 import React, { Suspense } from "react";
-
 import {
   // BrowserRouter as Router,
   Routes,
@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 const Home = React.lazy(() => import("./components/home/index"));
+const Login = React.lazy(() => import("./components/login/index"));
 const NotFound = React.lazy(() => import("./components/notfound/404page"));
 
 const App = () => {
@@ -23,6 +24,15 @@ const App = () => {
             </Suspense>
           }
         />
+        <Route
+          path="/login"
+          element={
+            <Suspense>
+              <Login/>
+            </Suspense>
+          }
+        />
+        
         <Route
           path="*"
           element={
