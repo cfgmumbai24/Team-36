@@ -45,6 +45,11 @@ const productSchema = new mongoose.Schema(
         master_admin_approved: {
             type: Boolean,
             required: true,
+        },
+        admin: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Admin',
+            required: false
         }
     },
     {
