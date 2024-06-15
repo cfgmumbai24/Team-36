@@ -12,6 +12,7 @@ import InventoryMaster from "./components/inventorymaster/index";
 import Inventory from "./components/inventory/inventory";
 import Masteradmin from "./components/masteradmin/index";
 import Subadmin from "./components/subadmin/index";
+import ChatbotModal from './components/chatbotModal/index';
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
         </main>
         <Footer />
       </div>
+      <ChatbotModal />
     </BrowserRouter>
   );
 };
