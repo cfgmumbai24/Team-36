@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import UserCreation from "../usercreation";
 // import ComponentA from "./ComponentA";
 // import ComponentB from "./ComponentB";
 // import ComponentC from "./ComponentC";
@@ -7,16 +8,16 @@ const MasterAdmin = () => {
   const [activeTab, setActiveTab] = useState("tab1");
 
   const renderContent = () => {
-    // switch (activeTab) {
+     switch (activeTab) {
     //   case "tab1":
     //     return <ComponentA />;
     //   case "tab2":
     //     return <ComponentB />;
     //   case "tab3":
     //     return <ComponentC />;
-    //   default:
-    //     return <ComponentA />;
-    // }
+       default:
+         return <UserCreation/>;
+     }
   };
 
   return (

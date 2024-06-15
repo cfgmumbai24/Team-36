@@ -29,7 +29,7 @@ const Home = (props) => {
             </Link>
           </div>
           <div className="flex justify-center space-x-4">
-            <Link to="/login">
+            <Link to="/client">
               <button className="px-4 py-2 bg-customOrange text-white rounded hover:bg-blue-600 transition duration-300">
                 Visit Our Marketplace
               </button>

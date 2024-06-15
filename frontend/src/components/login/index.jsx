@@ -5,7 +5,7 @@ import axios from 'axios';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [role, setRole] = useState('master-admin'); // Default role set to master-admin
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,7 +20,22 @@ const Login = () => {
       const result = await axios.post('http://localhost:5000/login', { email, password, role });
       if (result.data.status === "success") {
         localStorage.setItem('user', JSON.stringify(result.data.user));
-        navigate('/dashboard');
+        
+        // Navigate based on the role
+        switch (role) {
+          case 'master-admin':
+            navigate('/masteradmin');
+            break;
+          case 'sub-admin':
+            navigate('/subadmin');
+            break;
+          case 'cluster-admin':
+            navigate('/cluster');
+            break;
+          default:
+            navigate('/dashboard'); // Default route if role is not recognized
+            break;
+        }
       } else {
         console.log("Login failed:", result.data);
       }
