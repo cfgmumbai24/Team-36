@@ -19,7 +19,7 @@ const UserCreation = () => {
     console.log('Role:', role);
 
     try {
-      const response = await axios.post('http://localhost:5000/addClusterAdmin', {
+      const response = await axios.post('http://localhost:5000/masterAdmin/addAdmin', {
         name,
         email,
         phone_no: phoneNo,
