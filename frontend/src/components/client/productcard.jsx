@@ -2,33 +2,32 @@ import React, { useState } from "react";
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(0);
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
-  const saveToLocalStorage = (product, quantity) => {
-    const storedProducts = JSON.parse(localStorage.getItem("products")) || [];
-    const existingProductIndex = storedProducts.findIndex(
-      (p) => p.id === product.id
+  const updateProductArray = (product, quantity) => {
+    const updatedProducts = selectedProducts.map((p) =>
+      p.id === product.id ? { ...p, quantity } : p
     );
 
-    if (existingProductIndex !== -1) {
-      storedProducts[existingProductIndex].quantity = quantity;
-    } else {
-      storedProducts.push({ ...product, quantity });
+    if (!updatedProducts.some((p) => p.id === product.id)) {
+      updatedProducts.push({ ...product, quantity });
     }
 
-    localStorage.setItem("products", JSON.stringify(storedProducts));
+    setSelectedProducts(updatedProducts);
+    console.log("Selected Products:", updatedProducts);
   };
 
   const handleIncrement = () => {
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
-    saveToLocalStorage(product, newQuantity);
+    updateProductArray(product, newQuantity);
   };
 
   const handleDecrement = () => {
     if (quantity > 0) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
-      saveToLocalStorage(product, newQuantity);
+      updateProductArray(product, newQuantity);
     }
   };
 

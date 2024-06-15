@@ -2,12 +2,23 @@ import React, { useState } from "react";
 import { close, logo, menu } from "../../assets";
 import { navLinks } from "../../constants";
 import { Img } from "react-image";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const navigate=useNavigate()
+
   return (
-    <nav className="bg-customGray w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20 max-sm:bg-blue">
+    <nav
+      className="w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20"
+      style={{
+        background: "#F08000",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(5px)",
+        border: "1px solid rgba(255, 255, 255, 0.3)",
+      }}
+    >
       {/* Logo and brand name */}
       {/* <div className="flex items-center cursor-pointer">
         <Img src={logo} alt="logo" height={50} width={50} />
@@ -15,10 +26,11 @@ const Navbar = () => {
       </div> */}
 
       {/* Desktop navigation */}
-      <ul className="list-none sm:flex hidden justify-end items-center flex-1 text-black">
+      <ul className="list-none sm:flex hidden justify-end items-center flex-1 text-white">
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
+            onClick={()=>navigate(`${nav.id}`)}
             className={`font-poppins font-normal cursor-pointer text-base ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
