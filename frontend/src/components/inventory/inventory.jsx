@@ -262,14 +262,6 @@ export default function TableDemo() {
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
-          <TableRow className="bg-white">
-            <TableCell colSpan={5}>Total</TableCell>
-            <TableCell className="text-right">
-              ${calculateTotalprice()}
-            </TableCell>
-          </TableRow>
-        </TableFooter>
       </Table>
 
       {selectedProduct && (
