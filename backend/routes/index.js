@@ -1,7 +1,5 @@
 const express =require("express")
-const router = require("express").Router();
-
-const admin=require("../models/admin");
+const router = express.Router();
 
 router.use("/masterAdmin",require("./admin"))
 // router.use("/masterAdmin",require("./admin"))

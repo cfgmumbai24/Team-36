@@ -2,6 +2,7 @@ const Admin =require("../models/admin")
 
 module.exports.addClusterAdmin=async function(req,res){
     try{
+        console.log("here");
             var name= req.body.name
             var email =req.body.email
             var phone_no= req.body.phone_no
