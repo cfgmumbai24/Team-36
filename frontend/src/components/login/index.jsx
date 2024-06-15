@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import backgroundImage from "../../assets/images/background.svg";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,21 +12,17 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Log email, password, and role to the console
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Role:", role);
-
     try {
       const result = await axios.post("http://localhost:5000/user/signin", {
         email,
         password,
         role,
       });
+
       if (result.status === 200) {
         const userDetails = { email, password, role };
         localStorage.setItem("user", JSON.stringify(userDetails));
-        console.log(result.data);
+        console.log("Login successful:", result.data);
 
         // Navigate based on the role
         switch (role) {
@@ -43,7 +40,6 @@ const Login = () => {
             break;
         }
       } else {
-        console.log(result.status);
         console.log("Login failed:", result.data);
       }
     } catch (err) {
@@ -59,32 +55,28 @@ const Login = () => {
   const isLoggedIn = !!localStorage.getItem("user");
 
   return (
-    <div className="relative flex justify-center items-center min-h-screen bg-[#ef652220]">
-      <Link to="/">
-        {/* <button className="absolute top-4 right-4 hover:bg-gray-400 text-white font-bold py-2 px-4 rounded">
-          Home
-        </button> */}
-      </Link>
-
+    <div
+      className="relative flex justify-center px-32 items-center min-h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div
-        className="w-full max-w-md bg-white p-8 rounded-lg shadow-md"
+        className="w-full max-w-md p-8 rounded-lg shadow-md"
         style={{
-          background: "rgba(255, 255, 255, 0.34)",
+          background: "#F2DAC9",
           borderRadius: "16px",
           boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(50px)",
           WebkitBackdropFilter: "blur(10px)",
         }}
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-[#F08000]">
-          Login
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-center ">Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-[#F08000] text-sm font-bold mb-2"
-            >
+            <label htmlFor="email" className="block text-sm font-bold mb-2">
               Email
             </label>
             <input
@@ -97,10 +89,7 @@ const Login = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="password"
-              className="block text-[#F08000] text-sm font-bold mb-2"
-            >
+            <label htmlFor="password" className="block text-sm font-bold mb-2">
               Password
             </label>
             <input
@@ -113,10 +102,7 @@ const Login = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              htmlFor="role"
-              className="block text-[#F08000] text-sm font-bold mb-2"
-            >
+            <label htmlFor="role" className="block text-sm font-bold mb-2">
               Role
             </label>
             <select
@@ -133,17 +119,12 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#F08000] text-white py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-[#D8543A] text-white py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Login
           </button>
         </form>
-        <p className="mt-4 text-center">Don't have an account?</p>
-        <Link to="/signup">
-          <button className="w-full mt-2 bg-[#F08000] text-white py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-gray-500">
-            Register Now
-          </button>
-        </Link>
+
       </div>
     </div>
   );

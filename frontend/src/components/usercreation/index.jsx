@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import backgroundImage from "../../assets/images/background.svg";
 
 const UserCreation = () => {
   const [name, setName] = useState("");
@@ -36,26 +37,28 @@ const UserCreation = () => {
   };
 
   return (
-    <main className="flex justify-center items-center min-h-screen bg-[#ef652220]">
+    <main
+      className="flex justify-center items-center min-h-screen"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div
         className="w-full max-w-md p-8 rounded-lg shadow-md"
         style={{
-          background: "rgba(255, 255, 255, 0.34)",
+          background: "#F2DAC9",
           borderRadius: "16px",
           boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
           backdropFilter: "blur(50px)",
           WebkitBackdropFilter: "blur(10px)",
         }}
       >
-        <h2 className="text-2xl font-bold mb-6 text-center text-[#F08000]">
-          Create User
-        </h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Create User</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label
-              className="block text-[#F08000] text-sm font-bold mb-2"
-              htmlFor="name"
-            >
+            <label className="block text-sm font-bold mb-2" htmlFor="name">
               Name
             </label>
             <input
@@ -68,10 +71,7 @@ const UserCreation = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              className="block text-[#F08000] text-sm font-bold mb-2"
-              htmlFor="email"
-            >
+            <label className="block text-sm font-bold mb-2" htmlFor="email">
               Email
             </label>
             <input
@@ -84,10 +84,7 @@ const UserCreation = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              className="block text-[#F08000] text-sm font-bold mb-2"
-              htmlFor="phoneNo"
-            >
+            <label className="block text-sm font-bold mb-2" htmlFor="phoneNo">
               Phone Number
             </label>
             <input
@@ -100,10 +97,7 @@ const UserCreation = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              className="block text-[#F08000] text-sm font-bold mb-2"
-              htmlFor="password"
-            >
+            <label className="block text-sm font-bold mb-2" htmlFor="password">
               Password
             </label>
             <input
@@ -116,10 +110,7 @@ const UserCreation = () => {
           </div>
 
           <div className="mb-4">
-            <label
-              className="block text-[#F08000] text-sm font-bold mb-2"
-              htmlFor="role"
-            >
+            <label className="block text-sm font-bold mb-2" htmlFor="role">
               Role
             </label>
             <select
@@ -136,7 +127,7 @@ const UserCreation = () => {
 
           <button
             type="submit"
-            className="w-full bg-[#F08000] text-white py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-[#D8543A] text-white py-2 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Create User
           </button>

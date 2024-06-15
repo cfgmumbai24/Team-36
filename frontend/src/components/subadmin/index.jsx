@@ -4,7 +4,22 @@ import TableDemo from "../inventory/inventory";
 // import ComponentA from "./ComponentA";
 // import ComponentB from "./ComponentB";
 
+
+
 const Subadmin = () => {
+
+    React.useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+          console.log(user.role);
+        if (user.role==="sub-admin") {
+          
+          // Redirect to login if user is not logged in
+        }else{
+          navigate("*")
+        }
+      })
+    
+
   const [activeTab, setActiveTab] = useState("tab1");
 
   const renderContent = () => {
