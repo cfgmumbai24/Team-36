@@ -11,6 +11,8 @@ import Footer from "./components/footer";
 import Client from "./components/client/index";
 
 const Home = React.lazy(() => import("./components/home/index"));
+const Subadmin = React.lazy(() => import("./components/subadmin/index"));
+const Masteradmin = React.lazy(() => import("./components/masteradmin/index"));
 const Login = React.lazy(() => import("./components/login/index"));
 const Signup = React.lazy(() => import("./components/signup/index"));
 const Cluster = React.lazy(() => import("./components/cluster/index"));
@@ -29,6 +31,8 @@ const App = () => {
               <Route path="/signup" element={<Signup />} />
               <Route path="/cluster" element={<Cluster />} />
               <Route path="/client" element={<Client />} />
+              <Route path="/masteradmin" element={<Masteradmin/>} />
+              <Route path="/subadmin" element={<Subadmin/>} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
