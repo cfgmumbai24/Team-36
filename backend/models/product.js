@@ -8,14 +8,10 @@ const productSchema = new mongoose.Schema(
         },
         price: {
             type: Number,
-            required: true
+            required: false
         },
         image: {
             type: String,
-            required: true,
-        },
-        product_id: {
-            type: Number,
             required: true,
         },
         sku_id: {
