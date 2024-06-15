@@ -31,8 +31,8 @@ const App = () => {
               <Route path="/signup" element={<Signup />} />
               <Route path="/cluster" element={<Cluster />} />
               <Route path="/client" element={<Client />} />
-              <Route path="/masteradmin" element={<Masteradmin/>} />
-              <Route path="/subadmin" element={<Subadmin/>} />
+              <Route path="/masteradmin" element={<Masteradmin />} />
+              <Route path="/subadmin" element={<Subadmin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
