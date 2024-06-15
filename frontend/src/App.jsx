@@ -18,6 +18,7 @@ const Login = React.lazy(() => import("./components/login/index"));
 const Signup = React.lazy(() => import("./components/signup/index"));
 const Cluster = React.lazy(() => import("./components/cluster/index"));
 const NotFound = React.lazy(() => import("./components/notfound/404page"));
+const InventoryMaster = React.lazy(() => import("./components/inventorymaster/index"));
 
 const App = () => {
   return (
@@ -36,6 +37,7 @@ const App = () => {
               <Route path="/subadmin" element={<Subadmin />} />
               <Route path="*" element={<NotFound />} />
               <Route path="/inventory" element={<Inventory />} />
+              <Route path="/inventorymaster" element={<InventoryMaster />} />
             </Routes>
           </Suspense>
         </main>
