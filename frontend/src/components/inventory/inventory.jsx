@@ -32,7 +32,7 @@ export default function TableDemo() {
     // Fetch products from the backend
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/getProducts"); // Adjust the URL to your API endpoint
+        const response = await axios.get("http://localhost:5000/getProducts");
         setProducts(response.data);
         console.log(response.data);
       } catch (error) {
@@ -54,7 +54,7 @@ export default function TableDemo() {
     const updatedValue = name === "quantity" ? parseInt(value, 10) : value;
     const updatedFormData = {
       ...formData,
-      [name]: value,
+      [name]: updatedValue,
     };
     setFormData(updatedFormData);
   };
@@ -64,7 +64,7 @@ export default function TableDemo() {
       await axios.put(
         `http://localhost:5000/products/${formData.product_id}`,
         formData
-      ); // Adjust the URL to your API endpoint
+      );
       setProducts((prevProducts) =>
         prevProducts.map((prod) =>
           prod.product_id === formData.product_id ? formData : prod
@@ -78,9 +78,9 @@ export default function TableDemo() {
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`http://localhost:5000/products/${productId}`); // Adjust the URL to your API endpoint
-      setProducts(
-        products.filter((product) => product.product_id !== productId)
+      await axios.delete(`http://localhost:5000/products/${productId}`);
+      setProducts((prevProducts) =>
+        prevProducts.filter((product) => product.product_id !== productId)
       );
       setActiveActionMenu(null);
     } catch (error) {
@@ -101,9 +101,9 @@ export default function TableDemo() {
       await axios.post(
         `http://localhost:5000/subAdmin/updateProduct`,
         updatedProduct
-      ); // Adjust the URL to your API endpoint
-      setProducts(
-        products.map((product) =>
+      );
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
           product._id === selectedProduct._id ? updatedProduct : product
         )
       );
@@ -119,9 +119,9 @@ export default function TableDemo() {
       await axios.put(
         `http://localhost:5000/products/${selectedProduct.product_id}`,
         updatedProduct
-      ); // Adjust the URL to your API endpoint
-      setProducts(
-        products.map((product) =>
+      );
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
           product.product_id === selectedProduct.product_id
             ? updatedProduct
             : product
@@ -140,7 +140,7 @@ export default function TableDemo() {
   return (
     <div className="justify-center">
       <h1 className="my-10">INVENTORY MANAGEMENT</h1>
-      <Table className="border-2 rounded-lg border-slate-800 ">
+      <Table className="border-2 rounded-lg border-slate-800">
         <TableHeader>
           <TableRow className="text-center">
             <TableHead className="w-[100px]">Product_ID</TableHead>

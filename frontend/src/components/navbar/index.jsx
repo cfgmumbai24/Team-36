@@ -6,7 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
 
   return (
     <nav
@@ -29,14 +34,22 @@ const Navbar = () => {
         {navLinks.map((nav, index) => (
           <li
             key={nav.id}
-            onClick={()=>navigate(`${nav.id}`)}
+            onClick={() => navigate(`${nav.id}`)}
             className={`font-poppins font-normal cursor-pointer text-base ${
               index === navLinks.length - 1 ? "mr-0" : "mr-10"
             }`}
           >
-            <Link href={"/user"}>{nav.title} </Link>
+            <Link to={`${nav.id}`}>{nav.title}</Link>
           </li>
         ))}
+        <li className="ml-10">
+          <button
+            onClick={handleLogout}
+            className="font-poppins font-normal text-base text-black bg-red-500 px-4 py-2 rounded hover:bg-red-700 transition duration-300"
+          >
+            Logout
+          </button>
+        </li>
       </ul>
 
       {/* Mobile navigation */}
@@ -60,9 +73,17 @@ const Navbar = () => {
                     index === navLinks.length - 1 ? "border-b" : ""
                   }`}
                 >
-                  <Link href={"/user"}>{nav.title} </Link>
+                  <Link to={`${nav.id}`}>{nav.title}</Link>
                 </li>
               ))}
+              <li className="py-2 px-4 border-t">
+                <button
+                  onClick={handleLogout}
+                  className="font-poppins font-normal text-base text-black bg-red-500 w-full py-2 rounded hover:bg-red-700 transition duration-300"
+                >
+                  Logout
+                </button>
+              </li>
             </ul>
           </div>
         )}
