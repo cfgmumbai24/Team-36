@@ -23,8 +23,8 @@ const MasterAdmin = () => {
   const renderContent = () => {
 
     switch (activeTab) {
-      // case "Add Category":
-      //   return <ComponentA />;
+      case "Add Category":
+        return <AddCategory />;
       case "View Inventory":
         return <TableDemo />;
       // case "Create Users":
