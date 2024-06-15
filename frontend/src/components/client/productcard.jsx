@@ -26,14 +26,14 @@ const ProductCard = ({ product }) => {
       <div className="flex items-center mt-4">
         <button
           onClick={handleDecrement}
-          className="bg-red-500 text-white px-3 py-1 rounded mr-2"
+          className="bg-customOrange text-white px-3 py-1 rounded mr-2"
         >
           -
         </button>
         <span className="text-lg font-semibold">{quantity}</span>
         <button
           onClick={handleIncrement}
-          className="bg-green-500 text-white px-3 py-1 rounded ml-2"
+          className="bg-customOrange text-white px-3 py-1 rounded ml-2"
         >
           +
         </button>

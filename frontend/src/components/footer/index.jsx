@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => (
   <section
-    className={`${styles.flexCenter} ${styles.paddingY} flex-col px-4 md:px-8 lg:px-16 xl:px-20`}
+    className={`${styles.flexCenter} ${styles.paddingY} flex-col px-4 md:px-8 lg:px-16 xl:px-20 bg-customGray`}
     data-aos="fade-up"
   >
     <div className={`${styles.flexStart} md:flex-row flex-col mb-8 w-full`}>

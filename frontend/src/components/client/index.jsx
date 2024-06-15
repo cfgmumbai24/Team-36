@@ -1,7 +1,8 @@
 import React from "react";
 import ProductCard from "./productcard";
+import FormComponent from "./form";
 
-const App = () => {
+const Client = () => {
   const products = [
     {
       _id: "1",
@@ -41,8 +42,9 @@ const App = () => {
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
+      <FormComponent />
     </div>
   );
 };
 
-export default App;
+export default Client;
