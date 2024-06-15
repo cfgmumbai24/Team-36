@@ -4,7 +4,6 @@ import FormComponent from "./form";
 
 const Client = () => {
 
-  const [products, setProducts] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [products, setProducts] = useState([]);
 
