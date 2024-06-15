@@ -19,12 +19,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useNavigate } from "react-router-dom";
 
 export default function CardWithForm() {
   const [picture, setPicture] = useState(null);
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
+
+  const navigate =useNavigate()
+
+  React.useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+      console.log(user.role);
+    if (user.role==="cluster-admin") {
+      
+      // Redirect to login if user is not logged in
+    }else{
+      navigate("*")
+    }
+  })
 
   const handlePictureChange = async (e) => {
     const file = e.target.files[0];

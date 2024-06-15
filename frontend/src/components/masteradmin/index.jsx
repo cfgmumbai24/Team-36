@@ -4,7 +4,20 @@ import UserCreation from "../usercreation";
 // import ComponentB from "./ComponentB";
 // import ComponentC from "./ComponentC";
 
+
+
 const MasterAdmin = () => {
+    React.useEffect(() => {
+        const user = JSON.parse(localStorage.getItem("user"));
+          console.log(user.role);
+        if (user.role==="master-admin") {
+          
+          // Redirect to login if user is not logged in
+        }else{
+          navigate("*")
+        }
+      })
+    
   const [activeTab, setActiveTab] = useState("tab1");
 
   const renderContent = () => {
