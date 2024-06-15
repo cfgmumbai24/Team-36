@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   return (
-    <nav className="w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20 max-sm:bg-blue">
+    <nav className="bg-customGray w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20 max-sm:bg-blue">
       {/* Logo and brand name */}
       {/* <div className="flex items-center cursor-pointer">
         <Img src={logo} alt="logo" height={50} width={50} />
