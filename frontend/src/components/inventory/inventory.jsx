@@ -146,6 +146,7 @@ export default function TableDemo() {
             <TableHead className="w-[100px]">Product_ID</TableHead>
             <TableHead>SKU_ID</TableHead>
             <TableHead>Product_Name</TableHead>
+            <TableHead>Product Image</TableHead>
             <TableHead>Quantity</TableHead>
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Price</TableHead>
@@ -160,7 +161,7 @@ export default function TableDemo() {
             >
               <TableCell className="font-medium">
                 {editableProduct === product._id ? (
-                  <input
+                  <input  
                     name="product_id"
                     value={formData._id}
                     onChange={handleChange}
@@ -285,6 +286,15 @@ export default function TableDemo() {
                           id="product_id"
                           value={selectedProduct._id}
                           disabled
+                        />
+                      </div>
+                      <div className="flex flex-col space-y-1.5">
+                        <Label htmlFor="sku_id">Product Image</Label>
+                        <img
+                          id="sku_id"
+                          src={selectedProduct.image}
+                          alt="Product Image"
+                          className="object-contain h-48 w-full"
                         />
                       </div>
                       <div className="flex flex-col space-y-1.5">

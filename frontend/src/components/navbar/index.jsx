@@ -17,17 +17,13 @@ const Navbar = () => {
     <nav
       className="w-full flex flex-wrap py-2 sm:py-6 justify-between items-center px-4 md:px-8 lg:px-16 xl:px-20"
       style={{
-        background: "#ef652220",
+        background: "#166ce51f",
         boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
         backdropFilter: "blur(50px)",
         WebkitBackdropFilter: "blur(10px)",
       }}
     >
       {/* Logo and brand name */}
-      <div className="flex items-center cursor-pointer">
-        <Img src={logo} alt="logo" height={50} width={50} />
-        <p className="text-blue text-2xl font-poppins ml-2">Trustflow</p>
-      </div>
 
       {/* Desktop navigation */}
       <ul className="list-none sm:flex hidden justify-end items-center flex-1 text-black">
