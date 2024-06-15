@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import backgroundImage from "../../assets/images/background.svg";
 
 const Login = () => {
@@ -24,21 +26,27 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(userDetails));
         console.log("Login successful:", result.data);
 
-        // Navigate based on the role
-        switch (role) {
-          case "master-admin":
-            navigate("/masteradmin");
-            break;
-          case "sub-admin":
-            navigate("/subadmin");
-            break;
-          case "cluster-admin":
-            navigate("/cluster");
-            break;
-          default:
-            navigate("/dashboard"); // Default route if role is not recognized
-            break;
-        }
+        // Show success toast
+        toast.success(`Login successful! Welcome, ${email}.`);
+
+        // Delay navigation to allow time for toast message to be shown
+        setTimeout(() => {
+          // Navigate based on the role
+          switch (role) {
+            case "master-admin":
+              navigate("/masteradmin");
+              break;
+            case "sub-admin":
+              navigate("/subadmin");
+              break;
+            case "cluster-admin":
+              navigate("/cluster");
+              break;
+            default:
+              navigate("/dashboard"); // Default route if role is not recognized
+              break;
+          }
+        }, 2000); // 2000 milliseconds delay (adjust as needed)
       } else {
         console.log("Login failed:", result.data);
       }
@@ -126,6 +134,7 @@ const Login = () => {
         </form>
 
       </div>
+      <ToastContainer />
     </div>
   );
 };
