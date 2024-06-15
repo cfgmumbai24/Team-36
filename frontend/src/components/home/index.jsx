@@ -5,16 +5,16 @@ import landingImage from "../../assets/images/landing_image.jpg"; // Replace wit
 const Home = (props) => {
   return (
     <main className="max-w-screen overflow-hidden">
-      <div className="relative flex flex-col items-center justify-center min-h-screen bg-black">
+      <div className="relative flex flex-col items-center justify-center min-h-screen bg-stone-900">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-50"
+          className="absolute inset-0 bg-cover bg-center opacity-40"
           style={{ backgroundImage: `url(${landingImage})` }}
         ></div>
-        <div className="relative bg-white bg-opacity-75 p-8 rounded-lg shadow-lg text-center mx-4 lg:mx-0">
-          <h1 className="text-4xl font-bold mb-4">Welcome to Our Website</h1>
-          <p className="text-lg mb-6">
-            Discover our services and offerings. We provide top-notch solutions
-            for all your needs.
+        <div className="relative p-8 rounded-lg shadow-lg text-center mx-4 lg:mx-0">
+          <h1 className="text-6xl font-bold mb-4 text-white">Welcome to Our Website</h1>
+          <p className="text-lg mb-6 text-white">
+          More than a decade old organization founded by a group of like minded young social entrepreneurs
+
           </p>
           <div className="flex justify-center space-x-4 mb-4">
             <Link to="/login">
@@ -22,14 +22,10 @@ const Home = (props) => {
                 Go to Login
               </button>
             </Link>
-            <Link to="/signup">
-              <button className="px-4 py-2 bg-customBlue text-white rounded hover:bg-green-600 transition duration-300">
-                Go to Signup
-              </button>
-            </Link>
+            
           </div>
           <div className="flex justify-center space-x-4">
-            <Link to="/login">
+            <Link to="/client">
               <button className="px-4 py-2 bg-customOrange text-white rounded hover:bg-blue-600 transition duration-300">
                 Visit Our Marketplace
               </button>
@@ -38,7 +34,7 @@ const Home = (props) => {
         </div>
       </div>
 
-      <div className="bg-gray-100 py-12">
+      <div className="bg-grey-400 py-12">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-bold mb-8">What We Do</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
