@@ -1,36 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserCreation from "../usercreation";
 import TableDemo from "../inventorymaster";
+import { useNavigate } from "react-router-dom";
 // import ComponentA from "./ComponentA";
 // import ComponentB from "./ComponentB";
 // import ComponentC from "./ComponentC";
+
 import AddCategory from "../addCategory";
 
 const MasterAdmin = () => {
-    React.useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"));
-          console.log(user.role);
-        if (user.role==="master-admin") {
-          
-          // Redirect to login if user is not logged in
-        }else{
-          navigate("*")
-        }
-      })
-    
-  const [activeTab, setActiveTab] = useState("tab1");
+  const navigate = useNavigate(); // Move useNavigate inside the component
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user || user.role !== "master-admin") {
+      navigate("*");
+    }
+  }, [navigate]);
+
+  const [activeTab, setActiveTab] = useState("Add Category");
 
   const renderContent = () => {
-     switch (activeTab) {
-      case "tab1":
-        // return <ComponentA />;
-      case "tab2":
+
+    switch (activeTab) {
+      case "Add Category":
         return <AddCategory />;
-      case "tab3":
-        // return <ComponentC />;
-       default:
-         return <UserCreation/>;
-     }
+      case "View Inventory":
+        return <TableDemo />;
+      // case "Create Users":
+      //   return <ComponentC />;
+      default:
+        return <UserCreation />;
+    }
+
   };
 
   return (
@@ -52,7 +54,7 @@ const MasterAdmin = () => {
                 <button
                   onClick={() => setActiveTab("Add Category")}
                   className={`w-full text-left px-4 py-2 mb-2 rounded ${
-                    activeTab === "tab1" ? "bg-[#F08000]" : "bg-gray-200"
+                    activeTab === "Add Category" ? "bg-[#F08000]" : "bg-gray-200"
                   }`}
                 >
                   Add Category
@@ -62,7 +64,7 @@ const MasterAdmin = () => {
                 <button
                   onClick={() => setActiveTab("View Inventory")}
                   className={`w-full text-left px-4 py-2 mb-2 rounded ${
-                    activeTab === "tab2"
+                    activeTab === "View Inventory"
                       ? "bg-[#F08000] text-white"
                       : "bg-gray-200"
                   }`}
@@ -74,7 +76,7 @@ const MasterAdmin = () => {
                 <button
                   onClick={() => setActiveTab("Create Users")}
                   className={`w-full text-left px-4 py-2 rounded ${
-                    activeTab === "tab3"
+                    activeTab === "Create Users"
                       ? "bg-[#F08000] text-white"
                       : "bg-gray-200"
                   }`}
