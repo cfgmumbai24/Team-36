@@ -11,7 +11,7 @@ app.use(cors());
 //configure .env file
 dotenv.config();
 
-app.use("/",require("./routes"))
+app.use("/", require("./routes"))
 
 //database
 mongoose.connect(process.env.MONGO_URL,{

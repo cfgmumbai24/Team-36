@@ -2,9 +2,8 @@ const Product = require('../models/product');
 
 module.exports.addProduct = async function(req, res) {
     try {
-        const { category, image, description, quantity } = req.body;
-        var shape, color, sku_id;
-        var product_id;
+        const { name, category, image, description, quantity } = req.body;
+        var shape="ww", color="ww", sku_id="ww";
         let product = await Product.findOne({ category: category, sku_id: sku_id });
 
         if (product) {
@@ -15,6 +14,7 @@ module.exports.addProduct = async function(req, res) {
         } else {
             // Product does not exist, create a new one
             const newProduct = new Product({
+                name: name,
                 category: category,
                 image: image,
                 description: description,
@@ -22,7 +22,6 @@ module.exports.addProduct = async function(req, res) {
                 shape: shape,
                 color: color,
                 sku_id: sku_id,
-                product_id: product_id,
                 sub_admin_approved: true,
                 master_admin_approved: false
             });
@@ -32,6 +31,6 @@ module.exports.addProduct = async function(req, res) {
         }
     } catch (err) {
         console.error(err);
-        return res.status(500).redirect('/');
+        res.status(500).json({ error: "An error occurred while fetching products." });
     }
 };
