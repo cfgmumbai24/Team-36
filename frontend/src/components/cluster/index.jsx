@@ -19,39 +19,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import { useNavigate } from "react-router-dom";
-
 import backgroundImage from "../../assets/images/background.svg";
-
 
 export default function CardWithForm() {
   const [picture, setPicture] = useState(null);
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
-  const [shape, setShape]= useState("");
-  const [sku_id, setSku_id]= useState("");
+  const [shape, setShape] = useState("");
+  const [sku_id, setSku_id] = useState("");
   const [name, setName] = useState("");
+  const [loading, setLoading] = useState(false); // State for loading
 
-  const navigate =useNavigate()
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-      console.log(user.role);
-    if (user.role==="cluster-admin") {
-      
-      // Redirect to login if user is not logged in
-    }else{
-      navigate("*")
+    if (!user || user.role !== "cluster-admin") {
+      navigate("*");
     }
-  })
+  }, [navigate]);
 
   const handlePictureChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("image", file);
 
+    setLoading(true); // Start loader
     try {
       const response = await axios.post(
         "http://localhost:5000/generate",
@@ -63,7 +58,6 @@ export default function CardWithForm() {
         }
       );
 
-      console.log("Generate Response:", response.data);
       setColor(response.data.details.colour);
       setShape(response.data.details.shape);
       setSku_id(response.data.details.SKU);
@@ -71,6 +65,7 @@ export default function CardWithForm() {
     } catch (error) {
       console.error("Error generating image details:", error);
     }
+    setLoading(false); // Stop loader
   };
 
   const handleSubmit = async (event) => {
@@ -84,9 +79,10 @@ export default function CardWithForm() {
       quantity: parseInt(quantity),
       color: color,
       shape: shape,
-      sku_id: sku_id
+      sku_id: sku_id,
     };
 
+    setLoading(true); // Start loader
     try {
       const response = await axios.post(
         "http://localhost:5000/clusterAdmin/addProduct",
@@ -101,6 +97,7 @@ export default function CardWithForm() {
     } catch (error) {
       console.error("Error adding product:", error);
     }
+    setLoading(false); // Stop loader
   };
 
   return (
@@ -120,6 +117,11 @@ export default function CardWithForm() {
           backgroundPosition: "center",
         }}
       >
+        {loading && (
+          <div className="absolute inset-0 flex justify-center items-center bg-gray-700 bg-opacity-50">
+            <div className="loader">Loading...</div>
+          </div>
+        )}
         <Card
           className="w-[350px] shadow-2xl"
           style={{
