@@ -276,6 +276,15 @@ export default function TableDemo() {
                                                 />
                                             </div>
                                             <div className="flex flex-col space-y-1.5">
+                                                <Label htmlFor="sku_id">Product Image</Label>
+                                                <img
+                                                    id="sku_id"
+                                                    src={`data:image/jpeg;base64,${selectedProduct.image}`}
+                                                    alt="Product Image"
+                                                    className="object-contain h-48 w-full"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col space-y-1.5">
                                                 <Label htmlFor="product_name">Product Name</Label>
                                                 <Input
                                                     id="product_name"

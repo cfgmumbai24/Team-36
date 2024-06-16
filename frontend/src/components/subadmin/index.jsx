@@ -14,11 +14,6 @@ const Subadmin = () => {
 
   return (
     <main className="min-h-screen bg-[#ef652220]">
-      <nav className="bg-white shadow-md">
-        <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold">Subadmin Dashboard</h1>
-        </div>
-      </nav>
       <div className="container mx-auto px-4 py-8">
         <TableDemo />
       </div>

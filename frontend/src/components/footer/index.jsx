@@ -9,7 +9,7 @@ const Footer = () => (
     className={`${styles.flexCenter} ${styles.paddingY} flex-col px-4 md:px-8 lg:px-16 xl:px-20`}
     data-aos="fade-up"
     style={{
-      background: "#F2DAC9",
+      background: "#166ce51f",
       boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
       backdropFilter: "blur(50px)",
       WebkitBackdropFilter: "blur(10px)",
@@ -71,7 +71,6 @@ const Footer = () => (
       </div>
     </div>
 
-    <h1 className="text-2xl tracking-widest text-black">DOMinating Squad</h1>
   </section>
 );
 
