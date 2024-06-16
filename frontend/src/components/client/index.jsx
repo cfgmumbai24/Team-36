@@ -14,7 +14,7 @@ const Client = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setProducts(data.products || []); // Ensure products is initialized
+        setProducts(data || []); // Ensure products is initialized
       })
       .catch((error) => {
         console.error('There was an error!', error);
