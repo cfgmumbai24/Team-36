@@ -1,4 +1,4 @@
-# Team-36 DOMinating Squad
+# Team-36 DOMination Squad
 # Automated Digital Catalogue and Inventory Management System
 
 ## Overview
