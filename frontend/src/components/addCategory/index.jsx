@@ -42,7 +42,7 @@ export default function AddCategory() {
     };
 
     return (
-        <div className="bg-[#ef652220] max-h-screen flex justify-center py-32">
+        <div className="]max-h-screen flex justify-center py-32">
             <Card
                 className="w-[350px] shadow-2xl"
                 style={{

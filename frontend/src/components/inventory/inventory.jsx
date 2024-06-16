@@ -139,7 +139,7 @@ export default function TableDemo() {
 
   return (
     <div className="justify-center">
-      <h1 className="my-10">INVENTORY MANAGEMENT</h1>
+      <h1 className="my-20 ">INVENTORY MANAGEMENT</h1>
       <Table className="border-2 rounded-lg border-slate-800">
         <TableHeader>
           <TableRow className="text-center">
@@ -272,7 +272,7 @@ export default function TableDemo() {
         >
           <Dialog.Portal>
             <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-            <Dialog.Content className="fixed inset-0 m-auto max-w-md bg-white p-6 rounded shadow-lg">
+            <Dialog.Content className="my-24 fixed inset-0 m-auto max-w-md p-6 overflow-y-auto bg-white">
               <Card className="w-[350px] shadow-2xl">
                 <CardHeader>
                   <CardTitle>SUB-ADMIN APPROVAL</CardTitle>

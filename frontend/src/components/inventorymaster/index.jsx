@@ -259,10 +259,10 @@ export default function TableDemo() {
                 <Dialog.Root open={selectedProduct !== null} onOpenChange={() => setSelectedProduct(null)}>
                     <Dialog.Portal>
                         <Dialog.Overlay className="fixed inset-0 bg-black/50" />
-                        <Dialog.Content className=" my-4 fixed inset-0 m-auto max-w-md bg-white p-6 rounded shadow-lg">
-                            <Card className="w-[350px] shadow-2xl">
+                        <Dialog.Content className="my-24 fixed inset-0 m-auto max-w-md p-6 overflow-y-auto bg-white">
+                            <Card className="w-[350px] relative max-h-md ">
                                 <CardHeader>
-                                    <CardTitle>SUB-ADMIN APPROVAL</CardTitle>
+                                    <CardTitle>MASTER APPROVAL</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <form>
